@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "baKX2HUpb+cDDcitj6HYhOIVM3LznBd0DsphUk0L8vCDW8zj+4p92zCvTZXNeBZMjvkzdD0Obl223xRavI5Xjg==",
+  "success": true,
+  "projectFilePath": "/home/teddy0/Documents/youTube/dotnet/dotnetTest/dotnetTest.csproj",
+  "expectedPackageFiles": [
+    "/home/teddy0/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.0/microsoft.aspnetcore.app.ref.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
