@@ -1,16 +1,91 @@
 ﻿@page
 @model testPageModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "testPage";
+
+
+    // use double forward slash to write comments
+
+    /*
+
+    this is the other way to ensure that a block of code is a comment
+
+    */
+
+
+    // this is how we define string variables
+
+    string strA;
+
+    strA = "hello this is test text, 12345";
+
+    // you can also define string variables in the following manner:
+
+    string strB = "hello i am string B";
+
+    // now let's do some math
+
+    double a,b,c,d;
+
+    a = 3.87;
+    b = 4.0;
+    c = 5.5;
+    d = 4;
+
+    // let's do some addition
+
+    double e = c+d;
+
+    // we can do division
+
+    double f = c/d;
+
+    // multiplication
+
+    double g = c*d;
+
+    // exponents
+
+    double h = Math.Pow(c,d);
+
+    // subtraction
+
+    double i = c-d;
+
+    // modulus, means remainder
+
+    double j = c%d;
+
+
+
+
+
 }
 
 <div class="text-center">
-    <h1 class="display-4">testPage</h1>
+    <h1 class="display-4">@ViewData["Title"]</h1>
 
-    <p>hello this is test text</p>
+    <p>@strA</p>
 
+    <p>@strB</p>
 
+    <h2>okay now let's print some numbers, double variables</h2>
+
+    <p>@a</p>
+    <p>@b</p>
+    <p>@c,@d</p>
+
+    <p>@e = @c+@d</p>
+
+    <p>@f = @c/@d</p>
+
+    <p>@g = @c*@d</p>
     
+    <p>@h = @c^@d</p>
+    <p>@i = @c-@d</p>
+    <p>@j = @c%@d</p>
+
+
 </div>
 
 
