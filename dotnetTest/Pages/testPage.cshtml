@@ -92,6 +92,57 @@
 
 }
 
+@functions {
+
+    class tempConversion{
+
+        // lambda function for fahrenheit to celsius
+
+        public Func<double,int,double> fToC = (f,decPlaces) =>  ( Math.Round((f-32.0)*5/9,decPlaces) ) ;
+
+	// function celsius to fahrenheit
+
+	public double cToF(double tempC, int decPlaces){
+
+	    // type of output for tempF should be double
+
+	    double tempF;
+
+	    // assign a value to tempF
+
+	    tempF = 9.0/5.0*tempC+32.0;
+	    tempF = Math.Round(tempF,decPlaces);
+
+	    // give the function an output
+
+	    return tempF;
+
+
+	}
+
+    }
+
+
+}
+
+@{
+
+    // object declaration, first define the type
+
+    tempConversion t1;
+
+    // object declaration, second define the value
+
+    t1 = new tempConversion();
+
+    // do both things in the same line
+
+    tempConversion t2 = new tempConversion();
+
+
+}
+
+
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
 
@@ -119,6 +170,10 @@
 
     <p>@fahrenheit F = @celsius C </p>
     <p>@c1, @c2, @c3, @c4, @c5</p>
+
+    <p>@t1.fToC(88,1)C</p> 
+    <p>@t1.cToF(36.9,1)F</p>
+    <p>@(9.0/5)</p>
 
 
 </div>
