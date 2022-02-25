@@ -56,6 +56,36 @@
 
     double j = c%d;
 
+    // farenheit to celsius
+
+    double celsius,fahrenheit;
+
+    fahrenheit = 89.2;
+
+    celsius = (fahrenheit - 32)*5/9;
+    celsius = Math.Round(celsius,2);
+
+    Func<double,double> fToC = (f) => ( Math.Round((f-32.0)*5/9,3) );
+
+    Func<double,int,double> fToC2 = (f,decPlaces) =>  ( Math.Round((f-32.0)*5/9,decPlaces) ) ;
+
+    Func<double,double> fToC_1dp = (f) => ( fToC2(f,1) );
+    Func<double,double> fToC_2dp = (f) => ( fToC2(f,2) );
+    Func<double,double> fToC_3dp = (f) => ( fToC2(f,3) );
+
+    double f1,f2,f3,f4,f5;
+
+    f1 = 95;
+    f2 = 73;
+    f3 = 84;
+    f4 = 108;
+    f5 = 202;
+
+    double c1 = fToC(f1);
+    double c2 = fToC_1dp(f2);
+    double c3 = fToC_2dp(f3);
+    double c4 = fToC_3dp(f4);
+    double c5 = fToC2(f5,10);
 
 
 
@@ -84,6 +114,11 @@
     <p>@h = @c^@d</p>
     <p>@i = @c-@d</p>
     <p>@j = @c%@d</p>
+
+    <h2>fahrenheit to celsius</h2>
+
+    <p>@fahrenheit F = @celsius C </p>
+    <p>@c1, @c2, @c3, @c4, @c5</p>
 
 
 </div>
