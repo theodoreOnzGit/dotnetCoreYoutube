@@ -19,4 +19,39 @@ namespace UnitConversion{
 
 	}
 
+	struct TempObject{
+
+		double temperature;
+
+		string unit;
+
+		public TempObject(){
+
+			temperature = 273;
+			unit = "kelvin";
+		}
+
+		double getTemperature(){
+			return temperature;
+		}
+
+
+		string getUnit(){
+			return unit;
+		}
+
+		void setTemperature(double tempInput){
+
+			temperature = tempInput;
+
+		}
+
+		void setUnit(string unitInput){
+
+			unit = unitInput;
+
+		}
+
+	}
+
 }
