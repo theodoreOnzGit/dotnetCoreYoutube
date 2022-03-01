@@ -15,5 +15,7 @@ public class testPageModel : PageModel
     public void OnGet()
     {
 
+        UnitConversion.TempObject tempData1;
+        tempData1 = new UnitConversion.TempObject();
     }
 }
