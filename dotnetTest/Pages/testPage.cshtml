@@ -145,6 +145,10 @@
     t3 = new UnitConversion.TempConversion();
 
 
+    UnitConversion.TempObject tempData1;
+    tempData1 = new UnitConversion.TempObject();
+
+
 }
 
 
@@ -203,6 +207,20 @@
 
 		unit:
 		<input type="text" name="unit" />
+
+	</div>
+
+	<div class="mb-3">
+
+		temperature:
+		<input asp-for="@tempData1.temperature" class="form-control"/>
+
+	</div>
+
+	<div class="mb-3">
+
+		unit:
+		<input asp-for="@tempData1.unit" class="form-control"/>
 
 	</div>
 

@@ -21,9 +21,9 @@ namespace UnitConversion{
 
 	struct TempObject{
 
-		double temperature;
+		public double temperature;
 
-		string unit;
+		public string unit;
 
 		public TempObject(){
 
@@ -31,22 +31,22 @@ namespace UnitConversion{
 			unit = "kelvin";
 		}
 
-		double getTemperature(){
+		public double getTemperature(){
 			return temperature;
 		}
 
 
-		string getUnit(){
+		public string getUnit(){
 			return unit;
 		}
 
-		void setTemperature(double tempInput){
+		public void setTemperature(double tempInput){
 
 			temperature = tempInput;
 
 		}
 
-		void setUnit(string unitInput){
+		public void setUnit(string unitInput){
 
 			unit = unitInput;
 
