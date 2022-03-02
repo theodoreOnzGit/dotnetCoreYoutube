@@ -40,7 +40,7 @@ public class testPageModel : PageModel
             double temperatureVal = Convert.ToDouble(temperatureValStr);
 
 	    temperatureData.Value = temperatureVal;
-	    temperatureData.Unit = Request.Form["Unit"];
+	    temperatureData.Unit = "celsius";
 
 	    ViewData["temperatureData"] = temperatureData;
 
