@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Razor_Form_Submit.Models;
 
 namespace dotnetTest.Pages;
 
@@ -12,10 +13,22 @@ public class testPageModel : PageModel
         _logger = logger;
     }
 
+
     public void OnGet()
     {
 
-        UnitConversion.TempObject tempData1;
-        tempData1 = new UnitConversion.TempObject();
+    }
+
+    public string dataString { get; set; }
+
+    public void OnPostSubmit(){
+
+	    string data = Request.Form["Unit"];
+
+
+	    ViewData["dataString"] = data;   
+
+
     }
 }
+

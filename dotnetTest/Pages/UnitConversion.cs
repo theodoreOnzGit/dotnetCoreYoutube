@@ -19,7 +19,7 @@ namespace UnitConversion{
 
 	}
 
-	struct TempObject{
+	public struct TempObject{
 
 		public double temperature;
 

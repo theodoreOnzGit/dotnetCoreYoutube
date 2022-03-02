@@ -200,32 +200,19 @@
 	<div class="mb-3">
 
 		temperature:
-		<input type="text" name="temperature" />
+		<input type="text" id="txtValue" name="Value" />
 
 	</div>
 	<div class="mb-3">
 
 		unit:
-		<input type="text" name="unit" />
-
-	</div>
-
-	<div class="mb-3">
-
-		temperature:
-		<input asp-for="@tempData1.temperature" class="form-control"/>
-
-	</div>
-
-	<div class="mb-3">
-
-		unit:
-		<input asp-for="@tempData1.unit" class="form-control"/>
+		<input type="text" id="txtUnit" name="Unit" />
 
 	</div>
 
 
-	<button type = "submit" class="btn btn-primary" style="width:150px;">convert</button>
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="Submit">convert</button>
 
 	</div>
 
@@ -239,7 +226,6 @@
 
 	<tbody>
 
-		<td>value1</td>
-		<td>value2</td>
+		<td>@ViewData["dataString"]</td>
 	</tbody>
 </table>
