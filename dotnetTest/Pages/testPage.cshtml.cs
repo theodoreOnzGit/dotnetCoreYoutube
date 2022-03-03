@@ -16,4 +16,12 @@ public class testPageModel : PageModel
     {
 
     }
+
+    public void OnPostConvert(){
+
+	    string input = Request.Form["Temperature"];
+
+	    ViewData["Temperature"] = input;
+
+    }
 }

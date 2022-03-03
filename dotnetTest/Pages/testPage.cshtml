@@ -13,4 +13,10 @@
 
 </div>
 
+<form method="post">
 
+	<input type="text" id="txtTemperature" name="Temperature"/>
+	<input type="submit" value="Convert" asp-page-handler="Convert"/>
+</form>
+
+@ViewData["Temperature"]
