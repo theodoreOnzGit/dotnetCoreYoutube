@@ -21,7 +21,25 @@ public class testPageModel : PageModel
 
 	    string input = Request.Form["Temperature"];
 
+	    double tempC = Convert.ToDouble(input);
+
 	    ViewData["Temperature"] = input;
+
+	    UnitConversion.TempConversion convObj = new UnitConversion.TempConversion();
+
+	    double tempF = convObj.cToF(tempC,2);
+
+	    ViewData["TempF"] = tempF;
+
+	    // let's join a few strings together
+	    //
+	    //
+
+	    string output;
+
+	    output = "Result: "+ input +" C = " + Convert.ToString(tempF) + " F";
+
+	    ViewData["output"]= output;
 
     }
 }
