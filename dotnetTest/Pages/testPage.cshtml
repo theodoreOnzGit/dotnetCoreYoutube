@@ -189,7 +189,9 @@
 
 </div>
 
-<form method="post">
+
+
+<form method="post" runat="server">
 
 	<div class="border p-3 mt-4">
 
@@ -200,7 +202,8 @@
 	<div class="mb-3">
 
 		temperature:
-		<input type="text" id="txtValue" name="Value" />
+		<input type="number" id="txtValue" name="Value" step="0.001" required/>
+
 
 	</div>
 
