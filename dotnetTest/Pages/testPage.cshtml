@@ -17,8 +17,16 @@
 
 	<p>Temperature in Degrees Celsius to Degrees Fahrenheit Converter:</p>
 	
-	<input type="number" step="1e-4" id="txtTemperature" name="Temperature" min="-273.15" max="1.4e32" required/>
-	<input type="submit" value="Convert" asp-page-handler="Convert"/>
-</form>
+	<input type="number" step="1e-4" id="txtTempC" name="TempC" min="-273.15" max="1.4e32" value="0" required/>
+	<input type="submit" value="Convert" asp-page-handler="ConvertCToF"/>
 
-<p>@ViewData["output"]</p>
+<p>@ViewData["outputCToF"]</p>
+
+	<p>Temperature in Degrees Fahrenheit to Degrees Celsius Converter:</p>
+	
+	<input type="number" step="1e-4" id="txtTempF" name="TempF" min="-459.67" max="2.55e32" value="0" required/>
+	<input type="submit" value="Convert" asp-page-handler="ConvertFToC"/>
+
+<p>@ViewData["outputFToC"]</p>
+
+</form>

@@ -17,6 +17,19 @@ namespace UnitConversion{
 
 		}
 
+		public double fToC(double tempF, int decPlaces){
+
+			double tempC;
+
+			tempC = (tempF - 32.0) * 5.0/9.0;
+
+			tempC = Math.Round(tempC,decPlaces);
+
+			return tempC;
+
+		}
+
+
 	}
 
 }

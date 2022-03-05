@@ -17,19 +17,15 @@ public class testPageModel : PageModel
 
     }
 
-    public void OnPostConvert(){
+    public void OnPostConvertCToF(){
 
-	    string input = Request.Form["Temperature"];
+	    string input = Request.Form["TempC"];
 
 	    double tempC = Convert.ToDouble(input);
-
-	    ViewData["Temperature"] = input;
 
 	    UnitConversion.TempConversion convObj = new UnitConversion.TempConversion();
 
 	    double tempF = convObj.cToF(tempC,2);
-
-	    ViewData["TempF"] = tempF;
 
 	    // let's join a few strings together
 	    //
@@ -39,7 +35,29 @@ public class testPageModel : PageModel
 
 	    output = "Result: "+ input +" C = " + Convert.ToString(tempF) + " F";
 
-	    ViewData["output"]= output;
+	    ViewData["outputCToF"]= output;
 
     }
+
+    public void OnPostConvertFToC(){
+
+	    string input = Request.Form["TempF"];
+
+	    double tempF = Convert.ToDouble(input);
+
+	    UnitConversion.TempConversion convObj = new UnitConversion.TempConversion();
+
+	    double tempC = convObj.fToC(tempF,2);
+
+	    // let's join a few strings together
+	    //
+	    //
+
+	    string output;
+
+	    output = "Result: "+ input +" F = " + Convert.ToString(tempC) + " C";
+
+	    ViewData["outputFToC"]= output;
+    }
+
 }
