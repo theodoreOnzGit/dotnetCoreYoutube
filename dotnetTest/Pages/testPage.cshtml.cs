@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+// this package (or more correctly, namespace) gives us access to the model validation rules in square brakcets
+using System.ComponentModel.DataAnnotations;
+
 namespace dotnetTest.Pages;
 
 public class testPageModel : PageModel
@@ -39,11 +42,24 @@ public class testPageModel : PageModel
 
     }
 
+
+    [BindProperty]
+    [Required]
+    [Range(-459.67,2.55e32)]
+    public double tempF { get;  set; }
+
     public void OnPostConvertFToC(){
 
-	    string input = Request.Form["TempF"];
+	    if(ModelState.IsValid)
 
-	    double tempF = Convert.ToDouble(input);
+	    {
+
+	    // string input = Request.Form["TempF"];
+
+	    // tempF = Convert.ToDouble(tempF);
+	    //
+	    // get: a = tempF;
+	    // set: tempF = 89;
 
 	    UnitConversion.TempConversion convObj = new UnitConversion.TempConversion();
 
@@ -55,9 +71,11 @@ public class testPageModel : PageModel
 
 	    string output;
 
-	    output = "Result: "+ input +" F = " + Convert.ToString(tempC) + " C";
+	    output = "Result: "+ tempF +" F = " + Convert.ToString(tempC) + " C";
 
 	    ViewData["outputFToC"]= output;
+	    }
+
     }
 
 }

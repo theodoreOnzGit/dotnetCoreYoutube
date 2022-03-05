@@ -24,7 +24,8 @@
 
 	<p>Temperature in Degrees Fahrenheit to Degrees Celsius Converter:</p>
 	
-	<input type="number" step="1e-4" id="txtTempF" name="TempF" min="-459.67" max="2.55e32" value="0" required/>
+	<input asp-for="tempF"/>
+	<span asp-validation-for="tempF"></span>
 	<input type="submit" value="Convert" asp-page-handler="ConvertFToC"/>
 
 <p>@ViewData["outputFToC"]</p>
