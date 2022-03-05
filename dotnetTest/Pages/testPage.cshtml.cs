@@ -67,5 +67,16 @@ public class testPageModel : PageModel
 
 
     }
+
+
+
+    [BindProperty]
+    public double tempF { get; set; }
+
+    public void OnPostConvertFahrenheit(){
+
+	    ViewData["tempF"] = tempF;
+
+    }
 }
 
