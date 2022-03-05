@@ -75,8 +75,16 @@ public class testPageModel : PageModel
 
     public void OnPostConvertFahrenheit(){
 
-	    ViewData["tempF"] = tempF;
+	    ViewData["tempF"] = "Results: " + tempF.ToString() + " F = ";
 
+	    double tempC;
+
+	    UnitConversion.TempConversion tempConv = new UnitConversion.TempConversion();
+
+
+	    tempC = tempConv.fToC(tempF);
+
+	    ViewData["tempC"] = tempC.ToString() + " C";
     }
 }
 

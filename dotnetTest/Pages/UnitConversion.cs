@@ -5,7 +5,7 @@ namespace UnitConversion{
 
 	class TempConversion{
 
-		public double cToF(double tempC, int decPlaces){
+		public double cToF(double tempC, int decPlaces = 2 ){
 
 			double tempF;
 
@@ -14,6 +14,18 @@ namespace UnitConversion{
 			tempF = Math.Round(tempF,decPlaces);
 
 			return tempF;
+
+		}
+
+		public double fToC(double tempF, int decPlaces = 2){
+
+			double tempC;
+
+			tempC = (tempF - 32.0)* 5.0/9.0;
+
+			tempC = Math.Round(tempC,decPlaces);
+			
+			return tempC;
 
 		}
 
