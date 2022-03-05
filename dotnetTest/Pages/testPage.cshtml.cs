@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Razor_Form_Submit.Models;
 
+// here's where we can do validation attributes, eg [Required], [Range] etc
+//
+using System.ComponentModel.DataAnnotations;
+
 namespace dotnetTest.Pages;
 
 public class testPageModel : PageModel
@@ -71,9 +75,14 @@ public class testPageModel : PageModel
 
 
     [BindProperty]
+    [Required]
+    [Range(-459.67,2.55e32)]
     public double tempF { get; set; }
 
     public void OnPostConvertFahrenheit(){
+
+	    if (ModelState.IsValid)
+	    {
 
 	    ViewData["tempF"] = "Results: " + tempF.ToString() + " F = ";
 
@@ -85,6 +94,7 @@ public class testPageModel : PageModel
 	    tempC = tempConv.fToC(tempF);
 
 	    ViewData["tempC"] = tempC.ToString() + " C";
+	    }
     }
 }
 

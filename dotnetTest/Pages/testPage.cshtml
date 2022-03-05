@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "testPage";
 }
-<form method="post" runat="server">
+<form method="post">
 
 	<div class="border p-3 mt-4">
 
@@ -39,6 +39,7 @@
 
 		temperature in fahrenheit to celsius:
 		<input asp-for="tempF" />
+		<span asp-validation-for="tempF"></span>
 
 
 	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertFahrenheit">convert</button>
