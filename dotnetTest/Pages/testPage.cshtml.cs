@@ -18,6 +18,20 @@ public class testPageModel : PageModel
     }
 
 
+    // now i want to try things the dependency injection way, meaning to say we pass in the object in the constructor
+    // but how to do this? i don't invoke the onstructor in my code...
+    //
+    // (1) create a constructor here in the code
+    // (2) instead of making an instance of the pagemodel manually, the @model does it for you
+    // (3) however, i don't have a bracket to put in my dependency injection objects
+    // (4) so instead i use the @inject keyword.
+    //
+    // good pages to look at:
+    // https://stackoverflow.com/questions/130794/what-is-dependency-injection
+    // https://www.jamesshore.com/v2/blog/2006/dependency-injection-demystified
+    // https://stackoverflow.com/questions/47463206/how-to-retrieve-a-service-in-razor-pages-with-dependency-injection
+
+
     public void OnGet()
     {
 
