@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Razor_Form_Submit.Models;
 
 // here's where we can do validation attributes, eg [Required], [Range] etc
 //
 using System.ComponentModel.DataAnnotations;
+
+// here we load the EnergyConversion and BaseConversion classes
+//
+using UnitConversion.Models;
+using UnitConversion;
 
 namespace dotnetTest.Pages;
 
@@ -39,17 +43,12 @@ public class testPageModel : PageModel
 
     public string dataString { get; set; }
 
-    public DataModel temperatureData { get; set; } 
-
     public void OnPostSubmit(){
 
 	    string data = "result:";
 
 	    ViewData["dataString"] = data;
 
-	    DataModel temperatureData = new DataModel();
-
-	    temperatureData.Name = "Temperature";
 
             // forms implicitly give string values, not double,
 	    // we need to convert string to double using Convert
@@ -57,12 +56,8 @@ public class testPageModel : PageModel
 	    string temperatureValStr = Request.Form["Value"];
             double temperatureVal = Convert.ToDouble(temperatureValStr);
 
-	    temperatureData.Value = temperatureVal;
-	    temperatureData.Unit = "celsius";
 
-	    ViewData["temperatureData"] = temperatureData;
-
-	    dataString = Convert.ToString(temperatureVal)+" "+temperatureData.Unit+"=";
+	    dataString = Convert.ToString(temperatureVal)+" "+"celsius"+"=";
 
 	    ViewData["dataString2"] = dataString;
 
@@ -110,5 +105,54 @@ public class testPageModel : PageModel
 	    ViewData["tempC"] = tempC.ToString() + " C";
 	    }
     }
+
+    [BindProperty]
+    [Required]
+    public double btuPerHr { get; set; }
+
+    public void OnPostConvertBtuPerHr(){
+
+	    // for dependency injection (manual) i first need to instantiate
+	    // objects
+	    //
+
+	    SimpleEnergyConversion energyConversion = new SimpleEnergyConversion();
+	    
+	    SimpleBaseUnitConversion baseUnitConversion = new SimpleBaseUnitConversion();
+	    
+	    PowerConversion powerConv;
+	    powerConv = new PowerConversion(energyConversion,baseUnitConversion);
+
+	    // the above process is what dependency injection is about:
+	    // declaring dependencies as objects and passing them into
+	    // the constructor
+	    //
+	    // the above way is quite manual and not really done
+	    // in real webpages
+	    //
+	    // first let's pass the btuPerHr into viewdata
+
+	    @ViewData["btuPerHr"] = btuPerHr;
+
+	    // we'll then use the power conversion method
+	    //
+	    double wattsResult;
+
+	    wattsResult = powerConv.btuPerHrToWatts(btuPerHr);
+
+	    @ViewData["wattsResult"] = wattsResult;
+
+
+
+	    
+	    
+
+
+
+
+    }
+
+
+
 }
 

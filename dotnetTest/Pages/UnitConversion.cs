@@ -1,6 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+// here i load in DataModels for Temp Conversion
+
+
+using Razor_Form_Submit.Models;
+
+// here i load in my IEnergyConversion and IBaseConversion classes
+// or more correctly, interfaces
+
+using UnitConversion.Models;
+
 namespace UnitConversion{
 
 	class TempConversion{
@@ -65,5 +75,82 @@ namespace UnitConversion{
 		}
 
 	}
+
+
+	// here is a energy and power conversion class, wherein i will attempt to demonstrate dependency injection
+	// using interfaces and class implementations
+	//
+	// the power conversion class will be dependent on energy conversion class and time conversion class 
+	// so i will need to use those namespaces
+	//
+	
+	class PowerConversion{
+
+		// we will try watt to kilocalorie, and back
+		// joule to kWh and back
+		//
+		//
+		// let's first begin with constructor injection
+		//
+		//
+		private IEnergyConversion _energyConversion;
+
+		private IBaseUnitConversion _baseUnitConversion;
+
+		public PowerConversion(IEnergyConversion energyConversion,
+				IBaseUnitConversion baseUnitConversion){
+
+			_energyConversion = energyConversion;	
+			_baseUnitConversion = baseUnitConversion;
+		}
+
+
+		public double btuPerHrToWatts(double btuPerHr){
+
+			// first we know one watt is one joule per second
+			// let's convert btu to watts first
+			//
+
+			double oneBtuInJoules = _energyConversion.btuToJoule(1);
+			double oneHrInSeconds = _baseUnitConversion.hrToSeconds(1);
+
+			// then 1 btu/hr is equal 
+			// oneBtuInJoules/hr in watts/hr
+			// = oneBtuInJoules/oneHrInSeconds watts
+			//
+			//
+
+			double oneBtuPerHrInWatts = oneBtuInJoules/oneHrInSeconds;
+
+			double watts;
+
+			watts = btuPerHr * oneBtuPerHrInWatts;
+
+			return watts;
+
+
+		}
+
+		public double wattsToBtuPerHr(double watts){
+
+			double btuPerHr;
+
+			btuPerHr = watts/btuPerHrToWatts(1);		
+
+			return btuPerHr;
+		
+
+		}
+
+		
+		
+
+
+
+	}
+
+
+
+
 
 }

@@ -49,6 +49,23 @@
 
 
 
+
+
+	<div class="mb-3">
+		temperature in fahrenheit to celsius:
+		<input asp-for="btuPerHr" />
+		<span asp-validation-for="btuPerHr"></span>
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertBtuPerHr">convert</button>
+	</div>
+
+	<td>Result: @ViewData["btuPerHr"] btu/hr is equal to  @ViewData["wattsResult"] watts</td>
+	</div>
+
+
+
+
+	</div>
 	</div>
 
 	</div>
