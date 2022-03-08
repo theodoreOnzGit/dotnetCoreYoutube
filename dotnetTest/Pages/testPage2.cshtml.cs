@@ -19,22 +19,27 @@ public class testPage2Model : PageModel
     private IBaseUnitConversion _baseUnitConversion;
     private IEnergyConversion _energyConversion;
     private IPowerConverter _powerConversion;
+    private IData _data;
 
     public testPage2Model(ILogger<testPage2Model> logger,
 		    IEnergyConversion energyConversion,
 		    IBaseUnitConversion baseUnitConversion,
-		    IPowerConverter powerConversion)
+		    IPowerConverter powerConversion,
+		    IData data)
     {
         _logger = logger;
 	_baseUnitConversion = baseUnitConversion;
 	_energyConversion = energyConversion;
 	_powerConversion = powerConversion;
+	_data = data;
     }
 
 
 
     public void OnGet()
     {
+
+	    ViewData["buttonValue"] = _data.Value;
 
     }
 
@@ -120,6 +125,26 @@ public class testPage2Model : PageModel
 
 
     }
+
+    public void OnPostButtonClick(){
+
+	    buttonClick();
+
+    } 
+
+    public void buttonClick(){
+
+	    // i want a button to click and add a number starting at zero
+	    //
+	    //
+	    
+	    _data.Value = _data.Value + 0.1;
+
+	    ViewData["buttonValue"] = _data.Value;
+
+    } 
+
+    
 
 
 

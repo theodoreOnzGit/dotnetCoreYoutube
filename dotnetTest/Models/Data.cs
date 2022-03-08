@@ -14,6 +14,16 @@ public class Data : IData
 
         public string Unit { get; set; }
 
+	// We have a constructor to initialise some values
+	//
+	public Data(){
+
+		Name = "please enter name";
+		Value = 0.0;
+		Unit = "please enter unit";
+
+	}
+
 
 
 }

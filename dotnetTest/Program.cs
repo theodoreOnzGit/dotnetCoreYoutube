@@ -15,7 +15,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEnergyConversion, SimpleEnergyConversion>();
 builder.Services.AddScoped<IBaseUnitConversion, SimpleBaseUnitConversion>();
 builder.Services.AddScoped<IPowerConverter, PowerConversion>();
-builder.Services.AddScoped<IData, Data>();
+builder.Services.AddSingleton<IData, Data>();
 
 var app = builder.Build();
 

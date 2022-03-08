@@ -31,15 +31,20 @@
 		<span asp-validation-for="btuPerHr"></span>
 
 	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertBtuPerHr">convert</button>
-	</div>
 
 	<td>Result: @ViewData["btuPerHr"] btu/hr is equal to  @ViewData["wattsResult"] watts</td>
 	</div>
 
 
 
+	<div class="mb-3">
+		button click test:
 
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ButtonClick">Click Me to Add 0.1</button>
+
+	<td>@ViewData["buttonValue"]</td>
 	</div>
+
 	</div>
 
 	</div>
