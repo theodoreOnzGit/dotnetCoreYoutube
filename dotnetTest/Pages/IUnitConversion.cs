@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 // here i load in DataModels for Temp Conversion
 
 
-using Razor_Form_Submit.Models;
-
 // here i load in my IEnergyConversion and IBaseConversion classes
 // or more correctly, interfaces
 

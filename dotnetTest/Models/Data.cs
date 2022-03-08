@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace Razor_Form_Submit.Models;
+namespace UnitConversion.Models;
 
-public class DataModel
+
+public class Data : IData
 {
 
 
@@ -14,14 +15,6 @@ public class DataModel
         public string Unit { get; set; }
 
 
-        /*public DataModel(){
-
-                Name = "temperature";
-                Value = 273.0;
-                Unit = "Kelvin";
-
-        }
-	*/
 
 }
 
