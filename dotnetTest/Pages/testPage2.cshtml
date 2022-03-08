@@ -1,0 +1,74 @@
+﻿@page
+@model testPageModel
+@{
+    ViewData["Title"] = "testPage";
+}
+<form method="post">
+
+	<div class="border p-3 mt-4">
+
+		<h2 class="test primary pl-3">Convert Temperature Units </h2>
+		<hr />
+
+
+	<div class="mb-3">
+
+		temperature in celsius to fahrenheit:
+		<input type="number" id="txtValue" name="Value" step="1e-9" min="-273.15" max="1.416e32" value="0" required/>
+
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="Submit">convert</button>
+	</div>
+
+<table>
+	<tbody>
+		<td>@ViewData["dataString"]</td>
+		<td> </td>
+		<td>@ViewData["dataString2"]</td>
+
+		<td> </td>
+		<td>@ViewData["dataString3"]</td>
+
+	</tbody>
+</table>
+
+
+
+
+	<div class="mb-3">
+
+		temperature in fahrenheit to celsius:
+		<input asp-for="tempF" />
+		<span asp-validation-for="tempF"></span>
+
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertFahrenheit">convert</button>
+	</div>
+
+	<td>@ViewData["tempF"] @ViewData["tempC"]</td>
+
+
+
+
+
+	<div class="mb-3">
+		temperature in fahrenheit to celsius:
+		<input asp-for="btuPerHr" />
+		<span asp-validation-for="btuPerHr"></span>
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertBtuPerHr">convert</button>
+	</div>
+
+	<td>Result: @ViewData["btuPerHr"] btu/hr is equal to  @ViewData["wattsResult"] watts</td>
+	</div>
+
+
+
+
+	</div>
+	</div>
+
+	</div>
+
+</form>
+
