@@ -1,7 +1,20 @@
+using UnitConversion.Models;
+using UnitConversion;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// here is where we do dependency injection (first step)
+// after this you need to edit the constructors and PageModels
+// to accept the dependency injection
+// the webpage will do the rest for you
+
+
+builder.Services.AddScoped<IEnergyConversion, SimpleEnergyConversion>();
+builder.Services.AddScoped<IBaseUnitConversion, SimpleBaseUnitConversion>();
+builder.Services.AddScoped<IPowerConverter, PowerConversion>();
 
 var app = builder.Build();
 

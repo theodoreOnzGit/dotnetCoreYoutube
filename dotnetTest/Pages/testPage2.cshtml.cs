@@ -12,28 +12,25 @@ using UnitConversion;
 
 namespace dotnetTest.Pages;
 
-public class testPageModel : PageModel
+public class testPage2Model : PageModel
 {
-    private readonly ILogger<testPageModel> _logger;
+    private readonly ILogger<testPage2Model> _logger;
 
-    public testPageModel(ILogger<testPageModel> logger)
+    private IBaseUnitConversion _baseUnitConversion;
+    private IEnergyConversion _energyConversion;
+    private IPowerConverter _powerConversion;
+
+    public testPage2Model(ILogger<testPage2Model> logger,
+		    IEnergyConversion energyConversion,
+		    IBaseUnitConversion baseUnitConversion,
+		    IPowerConverter powerConversion)
     {
         _logger = logger;
+	_baseUnitConversion = baseUnitConversion;
+	_energyConversion = energyConversion;
+	_powerConversion = powerConversion;
     }
 
-
-    // now i want to try things the dependency injection way, meaning to say we pass in the object in the constructor
-    // but how to do this? i don't invoke the onstructor in my code...
-    //
-    // (1) create a constructor here in the code
-    // (2) instead of making an instance of the pagemodel manually, the @model does it for you
-    // (3) however, i don't have a bracket to put in my dependency injection objects
-    // (4) so instead i use the @inject keyword.
-    //
-    // good pages to look at:
-    // https://stackoverflow.com/questions/130794/what-is-dependency-injection
-    // https://www.jamesshore.com/v2/blog/2006/dependency-injection-demystified
-    // https://stackoverflow.com/questions/47463206/how-to-retrieve-a-service-in-razor-pages-with-dependency-injection
 
 
     public void OnGet()
@@ -112,42 +109,14 @@ public class testPageModel : PageModel
 
     public void OnPostConvertBtuPerHr(){
 
-	    // for dependency injection (manual) i first need to instantiate
-	    // objects
-	    //
-
-	    SimpleEnergyConversion energyConversion = new SimpleEnergyConversion();
-	    
-	    SimpleBaseUnitConversion baseUnitConversion = new SimpleBaseUnitConversion();
-	    
-	    PowerConversion powerConv;
-	    powerConv = new PowerConversion(energyConversion,baseUnitConversion);
-
-	    // the above process is what dependency injection is about:
-	    // declaring dependencies as objects and passing them into
-	    // the constructor
-	    //
-	    // the above way is quite manual and not really done
-	    // in real webpages
-	    //
-	    // first let's pass the btuPerHr into viewdata
 
 	    @ViewData["btuPerHr"] = btuPerHr;
 
-	    // we'll then use the power conversion method
-	    //
 	    double wattsResult;
 
-	    wattsResult = powerConv.btuPerHrToWatts(btuPerHr);
+	    wattsResult = _powerConversion.btuPerHrToWatts(btuPerHr);
 
 	    @ViewData["wattsResult"] = wattsResult;
-
-
-
-	    
-	    
-
-
 
 
     }

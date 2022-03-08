@@ -13,7 +13,7 @@ using UnitConversion.Models;
 
 namespace UnitConversion{
 
-	class TempConversion{
+	class TempConversion : ITemperatureConverter{
 
 		public double cToF(double tempC, int decPlaces = 2 ){
 
@@ -83,8 +83,10 @@ namespace UnitConversion{
 	// the power conversion class will be dependent on energy conversion class and time conversion class 
 	// so i will need to use those namespaces
 	//
+	//
 	
-	class PowerConversion{
+	
+	class PowerConversion : IPowerConverter{
 
 		// we will try watt to kilocalorie, and back
 		// joule to kWh and back

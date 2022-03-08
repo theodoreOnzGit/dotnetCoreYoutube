@@ -1,37 +1,9 @@
 ﻿@page
-@model testPageModel
+@model testPage2Model
 @{
     ViewData["Title"] = "testPage";
 }
 <form method="post">
-
-	<div class="border p-3 mt-4">
-
-		<h2 class="test primary pl-3">Convert Temperature Units </h2>
-		<hr />
-
-
-	<div class="mb-3">
-
-		temperature in celsius to fahrenheit:
-		<input type="number" id="txtValue" name="Value" step="1e-9" min="-273.15" max="1.416e32" value="0" required/>
-
-
-	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="Submit">convert</button>
-	</div>
-
-<table>
-	<tbody>
-		<td>@ViewData["dataString"]</td>
-		<td> </td>
-		<td>@ViewData["dataString2"]</td>
-
-		<td> </td>
-		<td>@ViewData["dataString3"]</td>
-
-	</tbody>
-</table>
-
 
 
 
@@ -52,7 +24,7 @@
 
 
 	<div class="mb-3">
-		temperature in fahrenheit to celsius:
+		power btu/Hr to watts:
 		<input asp-for="btuPerHr" />
 		<span asp-validation-for="btuPerHr"></span>
 
