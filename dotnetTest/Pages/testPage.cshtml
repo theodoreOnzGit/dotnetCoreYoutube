@@ -26,9 +26,19 @@
 
     <p> the chicken burger costs: $@ViewData["cost"] </p>
 
+    <form method="post">
 
+    <input type="submit" value = "Generate Random Number" asp-page-handler="RNG"/>
 
+    </form>
 
+    <p>Transient RNG</p>
+    <p>@ViewData["transientRNG1"] @ViewData["transientRNG2"]</p>
+    <p>Scoped  RNG</p>
+    <p>@ViewData["scopedRNG1"] @ViewData["scopedRNG2"]</p>
+
+    <p>Singleton RNG</p>
+    <p>@ViewData["singletonRNG1"] @ViewData["singletonRNG2"]</p>
 </div>
 
 

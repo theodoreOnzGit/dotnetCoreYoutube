@@ -1,4 +1,5 @@
 using dotnetTest.Models;
+using dotnetTest.Models.RNG;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IBuns,Buns>();
 builder.Services.AddScoped<IPatty,Patty>();
 builder.Services.AddScoped<IOther,Other>();
+
+// we add our singleton, scoped and transient dependencies
+
+builder.Services.AddTransient<IRNGTransient,RNGTransient>();
+builder.Services.AddScoped<IRNGScoped,RNGScoped>();
+builder.Services.AddSingleton<IRNGSingleton,RNGSingleton>();
 
 var app = builder.Build();
 
