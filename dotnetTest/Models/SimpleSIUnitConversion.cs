@@ -88,7 +88,7 @@ public class SimpleEnergyConversion : IEnergyConversion{
 	
 	public SimpleEnergyConversion(){
 
-		specificHeatH2OSI = 4.184;
+		specificHeatH2OSI = 4184;
 
 	}
 

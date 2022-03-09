@@ -12,7 +12,7 @@ builder.Services.AddRazorPages();
 // the webpage will do the rest for you
 
 
-builder.Services.AddScoped<IEnergyConversion, SimpleEnergyConversion>();
+builder.Services.AddScoped<IEnergyConversion, ComplexEnergyConversion>();
 builder.Services.AddScoped<IBaseUnitConversion, SimpleBaseUnitConversion>();
 builder.Services.AddScoped<IPowerConverter, PowerConversion>();
 builder.Services.AddSingleton<IData, Data>();

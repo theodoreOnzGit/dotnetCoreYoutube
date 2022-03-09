@@ -115,7 +115,7 @@ namespace UnitConversion{
 			double oneHrInSeconds = _baseUnitConversion.hrToSeconds(1);
 
 			// then 1 btu/hr is equal 
-			// oneBtuInJoules/hr in watts/hr
+			// oneBtuInJoules/hr in joule/hr
 			// = oneBtuInJoules/oneHrInSeconds watts
 			//
 			//
