@@ -3,12 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace dotnetTest.Models;
 
-public interface IBuns{
-
-	public double cost();
-
-}
-
 public class SuperExpensiveWheat : IBuns{
 
 	public double cost(){

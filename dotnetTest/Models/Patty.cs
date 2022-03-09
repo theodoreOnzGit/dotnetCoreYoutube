@@ -3,12 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace dotnetTest.Models;
 
-public interface IPatty{
-
-	public double cost();
-
-
-}
 
 public class MockPatty : IPatty
 {
