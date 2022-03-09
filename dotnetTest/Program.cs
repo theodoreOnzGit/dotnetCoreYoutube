@@ -1,5 +1,6 @@
 using UnitConversion.Models;
 using UnitConversion;
+using UnitConversion.Models.RNG;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,12 @@ builder.Services.AddScoped<IEnergyConversion, ComplexEnergyConversion>();
 builder.Services.AddScoped<IBaseUnitConversion, SimpleBaseUnitConversion>();
 builder.Services.AddScoped<IPowerConverter, PowerConversion>();
 builder.Services.AddSingleton<IData, Data>();
+
+// here we shall add the RNGs as scoped, transient and singleton services
+
+builder.Services.AddScoped<IRNGScoped,RNGScoped>();
+builder.Services.AddTransient<IRNGTransient,RNGTransient>();
+builder.Services.AddSingleton<IRNGSingleton,RNGSingleton>();
 
 var app = builder.Build();
 

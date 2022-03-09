@@ -45,6 +45,26 @@
 	<td>@ViewData["buttonValue"]</td>
 	</div>
 
+
+	<div class="mb-3">
+		button click test:
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="DepInjectionTest">Click Me to generate random numbers</button>
+
+	<p> singleton dependency injection</p>
+	<td>@ViewData["RNGSingleton1"]</td>
+	<td>@ViewData["RNGSingleton2"]</td>
+
+	<p> scoped dependency injection </p>
+	<td>@ViewData["RNGScoped1"]</td>
+	<td>@ViewData["RNGScoped2"]</td>
+
+	<p>transient dependency injection</p>
+	<td>@ViewData["RNGTransient1"]</td>
+	<td>@ViewData["RNGTransient2"]</td>
+	</div>
+
+
 	</div>
 
 	</div>
