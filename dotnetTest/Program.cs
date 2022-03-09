@@ -1,7 +1,12 @@
+using dotnetTest.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IBuns,Buns>();
+builder.Services.AddScoped<IPatty,Patty>();
+builder.Services.AddScoped<IOther,Other>();
 
 var app = builder.Build();
 
