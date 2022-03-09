@@ -1,15 +1,36 @@
 ﻿@page
 @model testPageModel
+@using dotnetTest.Models
 @{
     ViewData["Title"] = "testPage";
 
+    // for dependency injection, we declare all the objects first
 
+    MockPatty mockPatty = new MockPatty();
+    Patty patty = new Patty();
+    MockBuns mockBuns = new MockBuns();
+    Buns buns = new Buns();
+    MockOther mockOther = new MockOther();
+    Other other = new Other();
+    SuperExpensiveWheat expensiveWheat = new SuperExpensiveWheat();
+
+    // our chicken burger needs to have dependencies injected
+
+    ChickenBurger burger = new ChickenBurger(mockPatty, mockBuns, mockOther);
+    
+    burger.inject(patty, expensiveWheat, mockOther);
+
+
+
+    ViewData["cost"] = burger.cost();
 
 
 }
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
+
+    <p> the chicken burger costs: $@ViewData["cost"] </p>
 
 
 
