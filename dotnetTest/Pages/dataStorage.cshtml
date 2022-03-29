@@ -1,0 +1,73 @@
+﻿@page
+@model testPage2Model
+@{
+    ViewData["Title"] = "testPage2";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form method="post">
+
+
+
+	<div class="mb-3">
+
+		temperature in fahrenheit to celsius:
+		<input asp-for="tempF" />
+		<span asp-validation-for="tempF"></span>
+
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertFahrenheit">convert</button>
+	</div>
+
+	<td>@ViewData["tempF"] @ViewData["tempC"]</td>
+
+
+
+
+
+	<div class="mb-3">
+		power btu/Hr to watts:
+		<input asp-for="btuPerHr" />
+		<span asp-validation-for="btuPerHr"></span>
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertBtuPerHr">convert</button>
+
+	<td>Result: @ViewData["btuPerHr"] btu/hr is equal to  @ViewData["wattsResult"] watts</td>
+	</div>
+
+
+
+	<div class="mb-3">
+		button click test:
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ButtonClick">Click Me to Add 0.1</button>
+
+	<td>@ViewData["buttonValue"]</td>
+	</div>
+
+
+	<div class="mb-3">
+		button click test:
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="DepInjectionTest">Click Me to generate random numbers</button>
+
+	<p> singleton dependency injection</p>
+	<td>@ViewData["RNGSingleton1"]</td>
+	<td>@ViewData["RNGSingleton2"]</td>
+
+	<p> scoped dependency injection </p>
+	<td>@ViewData["RNGScoped1"]</td>
+	<td>@ViewData["RNGScoped2"]</td>
+
+	<p>transient dependency injection</p>
+	<td>@ViewData["RNGTransient1"]</td>
+	<td>@ViewData["RNGTransient2"]</td>
+	</div>
+
+
+	</div>
+
+	</div>
+
+</form>
+
