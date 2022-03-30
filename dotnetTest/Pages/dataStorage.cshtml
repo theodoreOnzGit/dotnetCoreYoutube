@@ -1,7 +1,7 @@
 ﻿@page
 @model dataStorageModel
 @{
-    ViewData["Title"] = "testPage2";
+    ViewData["Title"] = "dataStorage test: Order History";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -10,62 +10,66 @@
 
 
 	<div class="mb-3">
+		<h1>
+		place your order here:
+		</h1>
 
-		temperature in fahrenheit to celsius:
-		<input asp-for="tempF" />
-		<span asp-validation-for="tempF"></span>
+		<p> <input asp-for="customer" />
+		<span asp-validation-for="customer"></span>
 
+		</p>
 
-	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertFahrenheit">convert</button>
-	</div>
+		<p>
+		<input asp-for="burger" />
+		<span asp-validation-for="burger"></span>
+		</p>
 
-	<td>@ViewData["tempF"] @ViewData["tempC"]</td>
+		<p>
+		<input asp-for="sides" />
+		<span asp-validation-for="sides"></span>
+		</p>
 
+		<p>
+		<input asp-for="drink" />
+		<span asp-validation-for="drink"></span>
+		</p>
 
-
-
-
-	<div class="mb-3">
-		power btu/Hr to watts:
-		<input asp-for="btuPerHr" />
-		<span asp-validation-for="btuPerHr"></span>
-
-	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ConvertBtuPerHr">convert</button>
-
-	<td>Result: @ViewData["btuPerHr"] btu/hr is equal to  @ViewData["wattsResult"] watts</td>
-	</div>
-
-
-
-	<div class="mb-3">
-		button click test:
-
-	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ButtonClick">Click Me to Add 0.1</button>
-
-	<td>@ViewData["buttonValue"]</td>
-	</div>
-
-
-	<div class="mb-3">
-		button click test:
-
-	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="DepInjectionTest">Click Me to generate random numbers</button>
-
-	<p> singleton dependency injection</p>
-	<td>@ViewData["RNGSingleton1"]</td>
-	<td>@ViewData["RNGSingleton2"]</td>
-
-	<p> scoped dependency injection </p>
-	<td>@ViewData["RNGScoped1"]</td>
-	<td>@ViewData["RNGScoped2"]</td>
-
-	<p>transient dependency injection</p>
-	<td>@ViewData["RNGTransient1"]</td>
-	<td>@ViewData["RNGTransient2"]</td>
-	</div>
-
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="SubmitOrder">submit order</button>
 
 	</div>
+
+	<table>
+
+	<thead>
+		<th>order ID</th>
+		<th>customer</th>
+		<th>burger</th>
+		<th>sides</th>
+		<th>drink</th>
+	</thead>
+
+	<tbody>
+	@foreach(var order in Model.orderHistoryDisplay)
+	{
+	<tr>
+
+		<td>@order.id</td>
+		<td>@order.customer</td>
+		<td>@order.burger</td>
+		<td>@order.sides</td>
+		<td>@order.drink</td>
+
+	</tr>
+	}
+
+
+	</tbody>
+
+
+	</table>
+
+
+
 
 	</div>
 

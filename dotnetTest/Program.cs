@@ -2,6 +2,10 @@ using UnitConversion.Models;
 using UnitConversion;
 using UnitConversion.Models.RNG;
 
+// here's the namespace for data storage (order history)
+
+using dotnetTest.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,6 +27,11 @@ builder.Services.AddSingleton<IData, Data>();
 builder.Services.AddScoped<IRNGScoped,RNGScoped>();
 builder.Services.AddTransient<IRNGTransient,RNGTransient>();
 builder.Services.AddSingleton<IRNGSingleton,RNGSingleton>();
+
+// here we are adding services for data storage
+
+builder.Services.AddSingleton<IOrderHistory, OrderHistoryRAM>();
+builder.Services.AddScoped<IOrder, Order>();
 
 var app = builder.Build();
 

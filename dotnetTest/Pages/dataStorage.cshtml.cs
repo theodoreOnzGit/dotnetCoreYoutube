@@ -13,6 +13,10 @@ using UnitConversion;
 // here we load the RNG class
 using UnitConversion.Models.RNG;
 
+// here we load the orders and orderhistory class
+
+using dotnetTest.Models;
+
 namespace dotnetTest.Pages;
 
 public class dataStorageModel : PageModel
@@ -34,6 +38,12 @@ public class dataStorageModel : PageModel
     private IRNGSingleton _singletonRNG;
     private IRNGSingleton _singletonRNG2;
 
+    // this variable is for the IOrderHistory dependency injection
+    // for data storage
+
+    private IOrderHistory _orderHistory;
+    private IOrder _order;
+
     public dataStorageModel(ILogger<dataStorageModel> logger,
 		    IEnergyConversion energyConversion,
 		    IBaseUnitConversion baseUnitConversion,
@@ -44,7 +54,9 @@ public class dataStorageModel : PageModel
 		    IRNGTransient transientRNG,
 		    IRNGTransient transientRNG2,
 		    IRNGSingleton singletonRNG,
-		    IRNGSingleton singletonRNG2)
+		    IRNGSingleton singletonRNG2,
+		    IOrderHistory orderHistory,
+		    IOrder order)
     {
         _logger = logger;
 	_baseUnitConversion = baseUnitConversion;
@@ -58,6 +70,11 @@ public class dataStorageModel : PageModel
 	_transientRNG2 = transientRNG2;
 	_singletonRNG = singletonRNG;
 	_singletonRNG2 = singletonRNG2;
+
+	// this one does dependency injection for order history object
+	
+	_orderHistory = orderHistory;
+	_order = order;
     }
 
 
@@ -152,38 +169,51 @@ public class dataStorageModel : PageModel
 
     }
 
-    public void OnPostButtonClick(){
-
-	    buttonClick();
-
-    } 
-
-    public void buttonClick(){
-
-	    // i want a button to click and add a number starting at zero
-	    //
-	    //
-	    
-	    _data.Value = _data.Value + 0.1;
-
-	    ViewData["buttonValue"] = _data.Value;
-
-    } 
-
-    public void OnPostDepInjectionTest(){
-
-	    ViewData["RNGSingleton1"] = _singletonRNG.Value;
-
-	    ViewData["RNGSingleton2"] = _singletonRNG2.Value;
 
 
-	    ViewData["RNGScoped1"] = _scopedRNG.Value;
+    [BindProperty]
+    [Required]
+    public string customer { get; set; }
 
-	    ViewData["RNGScoped2"] = _scopedRNG2.Value;
+    [BindProperty]
+    [Required]
+    public string burger { get; set; }
 
-	    ViewData["RNGTransient1"] = _transientRNG.Value;
+    [BindProperty]
+    [Required]
+    public string drink { get; set; }
 
-	    ViewData["RNGTransient2"] = _transientRNG2.Value;
+    [BindProperty]
+    [Required]
+    public string sides { get; set; }
+
+
+    public IEnumerable<IOrder> orderHistoryDisplay;
+
+    public void OnPostSubmitOrder(){
+
+	    // we fill in the order first
+
+	    _order.customer = customer;
+	    _order.burger = burger;
+	    _order.drink = drink;
+	    _order.sides = sides;
+
+	    _order.drinkCost = 1.00;
+	    _order.sidesCost = 3.99;
+	    _order.burgerCost = 3.99;
+	    _order.id = 1;
+
+	    // straightaway we create an order
+
+	    _orderHistory.createOrder(_order);
+
+	    // we then copy this order history into
+	    // a local copy for display
+
+	    this.orderHistoryDisplay = _orderHistory.getOrderHistory();	    
+
+
     }
 
     
