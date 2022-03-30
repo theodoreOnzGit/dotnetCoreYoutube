@@ -36,9 +36,24 @@ public class OrderHistoryRAM : IOrderHistory
 
 	public void createOrder(IOrder order){
 
+		// first i need a function to find the max id in my 
+		// _orderHistory
+		//
+
+		int maxID;
+		int nextID;
+
+		maxID = _orderHistory.Count;
+
+		nextID = maxID + 1;
+
+		order.id = nextID;	
+
 		_orderHistory.Add(order);
 
 	}
+
+	
 
 	// for order deletion, the implementation is similar
 	// we usually use the remove method in the list
