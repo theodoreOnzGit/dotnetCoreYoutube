@@ -28,7 +28,7 @@ public class OrderHistoryRAM : IOrderHistory
 		// i choose not to because i will then have to register
 		// not just the orderhistory service but the order service
 
-		_orderHistory = new List<Order>();
+		_orderHistory = new List<IOrder>();
 
 	}
 
@@ -122,8 +122,28 @@ public class OrderHistoryRAM : IOrderHistory
 		this.createOrder(order);
 
 	}
+	public void updateOrder(IOrder order, string customer){
 
-	
+		// first i will delete order by id
+
+		this.deleteOrder(customer);
+
+		// second i will ensure that the order id is equal
+		// to the id given (this is more a failsafe)
+
+		order.customer = customer;
+
+		// third i will add the order back to the list
+		//
+
+		this.createOrder(order);
+
+	}
+
+	public IEnumerable<IOrder> getOrderHistory(){
+
+		return _orderHistory;
+	}	
 
 
 
