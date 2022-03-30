@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections.Generic;
 
 namespace dotnetTest.Models;
 
@@ -41,14 +41,6 @@ public interface IOrderHistory{
 	// now IOrder, is an interface of the order object,
 	// and IEnumerable is an interface, which is implemented
 	// either manually, by list types, collections or enumerables
-	
-
-
-
-	
-
-	
-
 
 }
 
