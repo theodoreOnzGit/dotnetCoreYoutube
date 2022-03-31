@@ -75,6 +75,8 @@ public class dataStorageModel : PageModel
 	
 	_orderHistory = orderHistory;
 	_order = order;
+
+
     }
 
 
@@ -83,7 +85,6 @@ public class dataStorageModel : PageModel
     {
 
 	    ViewData["buttonValue"] = _data.Value;
-
     }
 
     public string dataString { get; set; }
