@@ -24,6 +24,8 @@ public interface IOrderHistory{
 	void deleteOrder(int id);
 	void deleteOrder(string customer);
 
+	void clearAllOrders();
+
 	// here are update operations where an old order is
 	// ammended using information from a new order
 	void updateOrder(IOrder order, int id);

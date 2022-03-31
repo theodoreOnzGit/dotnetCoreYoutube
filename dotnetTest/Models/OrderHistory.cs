@@ -100,9 +100,13 @@ public class OrderHistoryRAM : IOrderHistory
 
 		IOrder order;
 
+
+		if(this.getOrder(id) != null){
+
 		order = this.getOrder(id);
 
 		_orderHistory.Remove(order);
+		}
 
 	}
 	
@@ -120,6 +124,14 @@ public class OrderHistoryRAM : IOrderHistory
 	// now that deletion is complete, we can then use those methods to update
 	// order
 	//
+	//
+	//
+	
+	public void clearAllOrders(){
+
+		_orderHistory.Clear();
+
+	}
 	
 	public void updateOrder(IOrder order, int id){
 
@@ -135,7 +147,7 @@ public class OrderHistoryRAM : IOrderHistory
 		// third i will add the order back to the list
 		//
 
-		this.createOrder(order);
+		_orderHistory.Add(order);
 
 	}
 	public void updateOrder(IOrder order, string customer){
@@ -152,7 +164,7 @@ public class OrderHistoryRAM : IOrderHistory
 		// third i will add the order back to the list
 		//
 
-		this.createOrder(order);
+		_orderHistory.Add(order);
 
 	}
 
@@ -160,6 +172,7 @@ public class OrderHistoryRAM : IOrderHistory
 
 		return _orderHistory;
 	}	
+
 
 
 

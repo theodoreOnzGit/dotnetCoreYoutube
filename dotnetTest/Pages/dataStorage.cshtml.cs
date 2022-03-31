@@ -23,21 +23,6 @@ public class dataStorageModel : PageModel
 {
     private readonly ILogger<dataStorageModel> _logger;
 
-    private IBaseUnitConversion _baseUnitConversion;
-    private IEnergyConversion _energyConversion;
-    private IPowerConverter _powerConversion;
-    private IData _data;
-
-    // here's to demonstrate dependency injection using scoped, transient
-    // and singleton
-    //
-    private IRNGScoped _scopedRNG;
-    private IRNGScoped _scopedRNG2;
-    private IRNGTransient _transientRNG;
-    private IRNGTransient _transientRNG2;
-    private IRNGSingleton _singletonRNG;
-    private IRNGSingleton _singletonRNG2;
-
     // this variable is for the IOrderHistory dependency injection
     // for data storage
 
@@ -45,31 +30,10 @@ public class dataStorageModel : PageModel
     private IOrder _order;
 
     public dataStorageModel(ILogger<dataStorageModel> logger,
-		    IEnergyConversion energyConversion,
-		    IBaseUnitConversion baseUnitConversion,
-		    IPowerConverter powerConversion,
-		    IData data,
-		    IRNGScoped scopedRNG,
-		    IRNGScoped scopedRNG2,
-		    IRNGTransient transientRNG,
-		    IRNGTransient transientRNG2,
-		    IRNGSingleton singletonRNG,
-		    IRNGSingleton singletonRNG2,
 		    IOrderHistory orderHistory,
 		    IOrder order)
     {
         _logger = logger;
-	_baseUnitConversion = baseUnitConversion;
-	_energyConversion = energyConversion;
-	_powerConversion = powerConversion;
-	_data = data;
-
-	_scopedRNG = scopedRNG;
-	_scopedRNG2 = scopedRNG2;
-	_transientRNG = transientRNG;
-	_transientRNG2 = transientRNG2;
-	_singletonRNG = singletonRNG;
-	_singletonRNG2 = singletonRNG2;
 
 	// this one does dependency injection for order history object
 	
@@ -77,6 +41,7 @@ public class dataStorageModel : PageModel
 	_order = order;
 
 
+	this.orderHistoryDisplay = _orderHistory.getOrderHistory();	    
     }
 
 
@@ -84,92 +49,7 @@ public class dataStorageModel : PageModel
     public void OnGet()
     {
 
-	    ViewData["buttonValue"] = _data.Value;
     }
-
-    public string dataString { get; set; }
-
-    public void OnPostSubmit(){
-
-	    string data = "result:";
-
-	    ViewData["dataString"] = data;
-
-
-            // forms implicitly give string values, not double,
-	    // we need to convert string to double using Convert
-	    //
-	    string temperatureValStr = Request.Form["Value"];
-            double temperatureVal = Convert.ToDouble(temperatureValStr);
-
-
-	    dataString = Convert.ToString(temperatureVal)+" "+"celsius"+"=";
-
-	    ViewData["dataString2"] = dataString;
-
-
-	    // now i want to declare a unit conversion, temp conversion object
-	    //
-
-	    UnitConversion.TempConversion tempConv = new UnitConversion.TempConversion();
-
-	    double tempF = tempConv.cToF(temperatureVal,2);
-	    string tempFString = Convert.ToString(tempF);
-
-	    dataString = tempF + " " + "Fahrenheit";
-
-	    ViewData["dataString3"] = dataString;
-
-
-
-	    
-
-
-    }
-
-
-
-    [BindProperty]
-    [Required]
-    [Range(-459.67,2.55e32)]
-    public double tempF { get; set; }
-
-    public void OnPostConvertFahrenheit(){
-
-	    if (ModelState.IsValid)
-	    {
-
-	    ViewData["tempF"] = "Results: " + tempF.ToString() + " F = ";
-
-	    double tempC;
-
-	    UnitConversion.TempConversion tempConv = new UnitConversion.TempConversion();
-
-
-	    tempC = tempConv.fToC(tempF);
-
-	    ViewData["tempC"] = tempC.ToString() + " C";
-	    }
-    }
-
-    [BindProperty]
-    [Required]
-    public double btuPerHr { get; set; }
-
-    public void OnPostConvertBtuPerHr(){
-
-
-	    @ViewData["btuPerHr"] = btuPerHr;
-
-	    double wattsResult;
-
-	    wattsResult = _powerConversion.btuPerHrToWatts(btuPerHr);
-
-	    @ViewData["wattsResult"] = wattsResult;
-
-
-    }
-
 
 
     [BindProperty]
@@ -217,7 +97,40 @@ public class dataStorageModel : PageModel
 
     }
 
+    [BindProperty]
+    public int orderID { get; set; }
+
+
+    public void OnPostDeleteOrder(){
+
+	    _orderHistory.deleteOrder(orderID);
+
+    }
+
     
+    public void OnPostClearAll(){
+
+	    _orderHistory.clearAllOrders();
+
+    }
+
+    public void OnPostUpdateOrder(){
+
+
+	    _order.customer = customer;
+	    _order.burger = burger;
+	    _order.drink = drink;
+	    _order.sides = sides;
+
+	    _order.drinkCost = 1.00;
+	    _order.sidesCost = 3.99;
+	    _order.burgerCost = 3.99;
+	    _order.id = orderID;
+
+	    _orderHistory.updateOrder(_order,orderID);
+
+
+    }
 
 
 

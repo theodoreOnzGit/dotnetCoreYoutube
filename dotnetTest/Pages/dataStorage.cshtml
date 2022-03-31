@@ -39,6 +39,23 @@
 
 	</div>
 
+	<div class="mb-3">
+
+		<p>order ID to delete or change:
+		<input asp-for="orderID" />
+		<span asp-validation-for="orderID"></span>
+		</p>
+
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="DeleteOrder">delete order</button>
+
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="ClearAll">clear all orders</button>
+
+
+	<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="UpdateOrder">update order</button>
+	</div>
+
 	<table>
 
 	<thead>
