@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
+// this include is important for dbcontext and entity framework core
+using Microsoft.EntityFrameworkCore;
+
 namespace dotnetTest.Models;
 
 // here's an interface for some of our data models
