@@ -4,15 +4,23 @@ using System.Collections.Generic;
 // this include is important for dbcontext and entity framework core
 using Microsoft.EntityFrameworkCore;
 
+// this include is important for the Interface of DbContext
+
 namespace dotnetTest.Models;
 
 // here's an interface for some of our data models
 // we can use databases later
 //
 
-public interface IAppDbContext
+public interface IAppDbContext : IAsyncDisposable, IDisposable, 
+       Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<IServiceProvider>, 
+       Microsoft.EntityFrameworkCore.Internal.IDbContextDependencies, 
+       Microsoft.EntityFrameworkCore.Internal.IDbContextPoolable, 
+       Microsoft.EntityFrameworkCore.Internal.IDbSetCache
 {
 	IAppDbContext get();
+	public DbSet<IOrder> OrderHistory { get; set; }
+        int SaveChanges();	
 }
 
 
@@ -23,6 +31,7 @@ public class  AppDbContextTightCouple : DbContext,IAppDbContext
 
 	public AppDbContextTightCouple(){
 
+		this.customiseMariaDbServer();
 		
 	}
 
@@ -65,8 +74,7 @@ public class  AppDbContextTightCouple : DbContext,IAppDbContext
 
 	}
 
-	
-	
+	public DbSet<IOrder> OrderHistory { get; set; } 
 
 
 	public IAppDbContext get(){

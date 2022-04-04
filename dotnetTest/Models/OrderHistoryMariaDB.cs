@@ -18,9 +18,11 @@ public class OrderHistoryMariaDB : IOrderHistory
 	// so we don't have to implement them 
 	
 	
-        private List<IOrder> _orderHistory;
+	private int count;
 
-	public OrderHistoryMariaDB(){
+	private readonly IAppDbContext _appDbContext;
+
+	public OrderHistoryMariaDB(IAppDbContext appDbContext){
 
 		// in the constructor, we initiate a new list
 		// a list is an implementation of the IEnumerable interface
@@ -31,9 +33,14 @@ public class OrderHistoryMariaDB : IOrderHistory
 		// i choose not to because i will then have to register
 		// not just the orderhistory service but the order service
 
-		_orderHistory = new List<IOrder>();
 
+		// dependency injection will happen for AppDbContext 
+		// because it allows me to change how 
+		// the appDbContext object is configures
+		//
+		//
 
+		_appDbContext = appDbContext;
 	}
 
 	// for order creation, we just use the add function within the list
@@ -41,22 +48,23 @@ public class OrderHistoryMariaDB : IOrderHistory
 	public void createOrder(IOrder order){
 
 		// first i need a function to find the max id in my 
-		// _orderHistory
+		// _appDbContext.OrderHistory
 		//
 
 		int maxID;
 		int nextID;
 
-		maxID = _orderHistory.Count;
+
+		maxID = _appDbContext.OrderHistory.Count();
 
 		nextID = maxID + 1;
 
 		order.id = nextID;	
 
-		_orderHistory.Add(order);
+		_appDbContext.OrderHistory.Add(order);
+		_appDbContext.SaveChanges();
 
 	}
-
 	
 
 	// for order deletion, the implementation is similar
@@ -70,7 +78,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 		IOrder order;
 		
-		order = _orderHistory.FirstOrDefault(Order => Order.id == id);	
+		order = _appDbContext.OrderHistory.Find(id);	
 
 		// first or default returns the first or default object
 		// , in the above case
@@ -89,8 +97,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 		IOrder order;
 		
-		order = _orderHistory.FirstOrDefault(Order => Order.customer
-			       	== customer);	
+		order = _appDbContext.OrderHistory.Find(customer);	
 	        return order;	
 
 	}
@@ -106,9 +113,9 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 		if(this.getOrder(id) != null){
 
-		order = this.getOrder(id);
+			order = this.getOrder(id);
 
-		_orderHistory.Remove(order);
+			_appDbContext.OrderHistory.Remove(order);
 		}
 
 	}
@@ -120,7 +127,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 		order = this.getOrder(customer);
 
-		_orderHistory.Remove(order);
+		_appDbContext.OrderHistory.Remove(order);
 
 	}
 
@@ -132,7 +139,13 @@ public class OrderHistoryMariaDB : IOrderHistory
 	
 	public void clearAllOrders(){
 
-		_orderHistory.Clear();
+		bool anyElements = _appDbContext.OrderHistory.Any();
+
+		if(anyElements){
+			foreach(IOrder order in _appDbContext.OrderHistory){
+				_appDbContext.OrderHistory.Remove(order);
+			}
+		}
 
 	}
 	
@@ -150,30 +163,23 @@ public class OrderHistoryMariaDB : IOrderHistory
 		// third i will add the order back to the list
 		//
 
-		_orderHistory.Add(order);
+		_appDbContext.OrderHistory.Add(order);
 
 	}
-	public void updateOrder(IOrder order, string customer){
+	public void updateOrder(IOrder _order, string customer){
 
-		// first i will delete order by id
+		_order.customer = customer;
 
-		this.deleteOrder(customer);
+		var order = _appDbContext.OrderHistory.Attach(_order);
+		var orderState = Microsoft.EntityFrameworkCore.EntityState.Modified;
+		_appDbContext.SaveChanges();
 
-		// second i will ensure that the order id is equal
-		// to the id given (this is more a failsafe)
-
-		order.customer = customer;
-
-		// third i will add the order back to the list
-		//
-
-		_orderHistory.Add(order);
 
 	}
 
 	public IEnumerable<IOrder> getOrderHistory(){
 
-		return _orderHistory;
+		return _appDbContext.OrderHistory;
 	}	
 
 
