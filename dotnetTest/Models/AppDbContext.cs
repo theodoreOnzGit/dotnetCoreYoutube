@@ -13,10 +13,7 @@ namespace dotnetTest.Models;
 //
 
 public interface IAppDbContext : IAsyncDisposable, IDisposable, 
-       Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<IServiceProvider>, 
-       Microsoft.EntityFrameworkCore.Internal.IDbContextDependencies, 
-       Microsoft.EntityFrameworkCore.Internal.IDbContextPoolable, 
-       Microsoft.EntityFrameworkCore.Internal.IDbSetCache
+       Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<IServiceProvider>
 {
 	IAppDbContext get();
 	// you cannot use Interfaces as types in DbSet
@@ -45,21 +42,17 @@ public class  AppDbContextTightCouple : DbContext,IAppDbContext
 	
 	private Version version;
 	// server type needs the Pomelo namespace...
-	private Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType serverType;
 	private ServerVersion serverVersion;
 	private string connectionString;
 
 	// second i'm declaring dbcontextoptionsbuilder for use
 	
-	private DbContextOptions configuredMariaDbOptions;
 	private DbContextOptionsBuilder emptyDbContextOptionsBuilder;
-	private DbContextOptionsBuilder configuredDbContextOptionsBuilder;
 
 	// now i'm making methods which are called to create the necessary inputs
 	public void customiseMariaDbServer(){
 
 		version = new Version(10,7,3);
-		serverType =  Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MariaDb;
 		serverVersion = new MariaDbServerVersion(version);
 		connectionString = "Server=localhost;Database=asp_mariadb_test;User=testUser;Password=testPw;";
 	}
@@ -74,6 +67,10 @@ public class  AppDbContextTightCouple : DbContext,IAppDbContext
 
 		// i then create the database if it doesn't exist
 
+
+		// this part is for autoincrement id
+		// https://stackoverflow.com/questions/50202735/how-to-tell-entity-framework-that-my-id-column-is-auto-incremented-aspnet-core
+		//
 	}
 
 	public DbSet<Order> OrderHistory { get; set; } 

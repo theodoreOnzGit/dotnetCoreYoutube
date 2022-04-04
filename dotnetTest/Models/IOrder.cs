@@ -8,7 +8,7 @@ namespace dotnetTest.Models;
 
 public interface IOrder{
 
-	int id { get; set; }
+	int Id { get; set; }
 
         string customer { get; set; }
 

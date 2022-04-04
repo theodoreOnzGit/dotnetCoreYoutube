@@ -18,7 +18,6 @@ public class OrderHistoryMariaDB : IOrderHistory
 	// so we don't have to implement them 
 	
 	
-	private int count;
 
 	private readonly IAppDbContext _appDbContext;
 
@@ -47,22 +46,6 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 	public void createOrder(Order order){
 
-		// first i need a function to find the max id in my 
-		// _appDbContext.OrderHistory
-		//
-
-		int maxID;
-		int nextID;
-
-
-		maxID = _appDbContext.OrderHistory.Count();
-
-		nextID = maxID + 1;
-
-		order.id = nextID;
-		// order is of type interface, but we need the
-		// concrete class to add to order history
-
 		_appDbContext.OrderHistory.Add(order);
 		_appDbContext.SaveChanges();
 
@@ -73,6 +56,9 @@ public class OrderHistoryMariaDB : IOrderHistory
 	// first in order to know what to remove
 	// so we need a get method to retrieve the correct object for removal
 	//
+	//
+	//
+
 	
 	public Order getOrder(int id){
 
@@ -117,6 +103,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 			_appDbContext.OrderHistory.Remove(order);
 		}
 
+		_appDbContext.SaveChanges();
 	}
 	
 
@@ -130,6 +117,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 			_appDbContext.OrderHistory.Remove(order);
 
 		}
+		_appDbContext.SaveChanges();
 	}
 
 	// now that deletion is complete, we can then use those methods to update
@@ -148,11 +136,12 @@ public class OrderHistoryMariaDB : IOrderHistory
 			}
 		}
 
+		_appDbContext.SaveChanges();
 	}
 	
 	public void updateOrder(Order _order, int id){
 
-		_order.id = id;
+		_order.Id = id;
 
 		var order = _appDbContext.OrderHistory.Attach(_order);
 		var orderState = Microsoft.EntityFrameworkCore.EntityState.Modified;

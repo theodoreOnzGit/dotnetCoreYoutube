@@ -32,7 +32,7 @@ builder.Services.AddSingleton<IRNGSingleton,RNGSingleton>();
 
 builder.Services.AddScoped<IOrder, Order>();
 builder.Services.AddScoped<IAppDbContext,AppDbContextTightCouple>();
-builder.Services.AddSingleton<IOrderHistory, OrderHistoryRAM>();
+builder.Services.AddScoped<IOrderHistory, OrderHistoryMariaDB>();
 
 var app = builder.Build();
 

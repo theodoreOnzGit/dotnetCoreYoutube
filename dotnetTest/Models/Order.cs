@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 
+
 namespace dotnetTest.Models;
 
 // here's an interface for some of our data models
@@ -9,7 +10,7 @@ namespace dotnetTest.Models;
 public class Order : IOrder 
 {
 
-	public int id { get; set; }
+	public int Id { get; set; }
 
         public string customer { get; set; }
 
@@ -32,7 +33,6 @@ public class Order : IOrder
 	
 	public Order(){
 
-		id = -1;
 		customer = "blank";
 		burger = "nothing";
 		burgerCost = 0.0;

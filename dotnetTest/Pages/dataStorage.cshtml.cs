@@ -72,22 +72,25 @@ public class dataStorageModel : PageModel
 
     public void OnPostSubmitOrder(){
 
-	    // we fill in the order first
+	    // we'll need server side validation...
 
-	    _order.customer = customer;
-	    _order.burger = burger;
-	    _order.drink = drink;
-	    _order.sides = sides;
 
-	    _order.drinkCost = 1.00;
-	    _order.sidesCost = 3.99;
-	    _order.burgerCost = 3.99;
-	    _order.id = 1;
+	    if (ModelState.IsValid){
+		    // we fill in the order first
 
-	    // straightaway we create an order
+		    _order.customer = customer;
+		    _order.burger = burger;
+		    _order.drink = drink;
+		    _order.sides = sides;
 
-	    _orderHistory.createOrder(_order);
+		    _order.drinkCost = 1.00;
+		    _order.sidesCost = 3.99;
+		    _order.burgerCost = 3.99;
 
+		    // straightaway we create an order
+
+		    _orderHistory.createOrder(_order);
+	    }
 	    // we then copy this order history into
 	    // a local copy for display
 
@@ -115,19 +118,20 @@ public class dataStorageModel : PageModel
 
     public void OnPostUpdateOrder(){
 
+	    if (ModelState.IsValid){
 
-	    _order.customer = customer;
-	    _order.burger = burger;
-	    _order.drink = drink;
-	    _order.sides = sides;
+		    _order.customer = customer;
+		    _order.burger = burger;
+		    _order.drink = drink;
+		    _order.sides = sides;
 
-	    _order.drinkCost = 1.00;
-	    _order.sidesCost = 3.99;
-	    _order.burgerCost = 3.99;
-	    _order.id = orderID;
+		    _order.drinkCost = 1.00;
+		    _order.sidesCost = 3.99;
+		    _order.burgerCost = 3.99;
+		    _order.Id = orderID;
 
-	    _orderHistory.updateOrder(_order,orderID);
-
+		    _orderHistory.updateOrder(_order,orderID);
+	    }
 
     }
 

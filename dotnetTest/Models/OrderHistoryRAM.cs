@@ -48,7 +48,7 @@ public class OrderHistoryRAM : IOrderHistory
 
 		nextID = maxID + 1;
 
-		order.id = nextID;	
+		order.Id = nextID;	
 
 		_orderHistory.Add(order);
 
@@ -67,7 +67,7 @@ public class OrderHistoryRAM : IOrderHistory
 
 		Order order;
 		
-		order = _orderHistory.FirstOrDefault(Order => Order.id == id);	
+		order = _orderHistory.FirstOrDefault(Order => Order.Id == id);	
 
 		// first or default returns the first or default object
 		// , in the above case
@@ -142,7 +142,7 @@ public class OrderHistoryRAM : IOrderHistory
 		// second i will ensure that the order id is equal
 		// to the id given (this is more a failsafe)
 
-		order.id = id;
+		order.Id = id;
 
 		// third i will add the order back to the list
 		//
