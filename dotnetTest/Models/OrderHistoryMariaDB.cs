@@ -45,7 +45,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 	// for order creation, we just use the add function within the list
 
-	public void createOrder(IOrder order){
+	public void createOrder(Order order){
 
 		// first i need a function to find the max id in my 
 		// _appDbContext.OrderHistory
@@ -59,14 +59,14 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 		nextID = maxID + 1;
 
-		order.id = nextID;	
+		order.id = nextID;
+		// order is of type interface, but we need the
+		// concrete class to add to order history
 
 		_appDbContext.OrderHistory.Add(order);
 		_appDbContext.SaveChanges();
 
 	}
-	
-
 	// for order deletion, the implementation is similar
 	// we usually use the remove method in the list
 	// however, the remove method requires an object 
@@ -74,9 +74,9 @@ public class OrderHistoryMariaDB : IOrderHistory
 	// so we need a get method to retrieve the correct object for removal
 	//
 	
-	public IOrder getOrder(int id){
+	public Order getOrder(int id){
 
-		IOrder order;
+		Order order;
 		
 		order = _appDbContext.OrderHistory.Find(id);	
 
@@ -93,10 +93,9 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 	}
 	
-	public IOrder getOrder(string customer){
+	public Order getOrder(string customer){
 
-		IOrder order;
-		
+		Order order;
 		order = _appDbContext.OrderHistory.Find(customer);	
 	        return order;	
 
@@ -108,7 +107,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 	public void deleteOrder(int id){
 
-		IOrder order;
+		Order order;
 
 
 		if(this.getOrder(id) != null){
@@ -123,12 +122,14 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 	public void deleteOrder(string customer){
 
-		IOrder order;
+		Order order;
 
 		order = this.getOrder(customer);
 
-		_appDbContext.OrderHistory.Remove(order);
+		if(this.getOrder(customer) != null){
+			_appDbContext.OrderHistory.Remove(order);
 
+		}
 	}
 
 	// now that deletion is complete, we can then use those methods to update
@@ -142,31 +143,23 @@ public class OrderHistoryMariaDB : IOrderHistory
 		bool anyElements = _appDbContext.OrderHistory.Any();
 
 		if(anyElements){
-			foreach(IOrder order in _appDbContext.OrderHistory){
+			foreach(Order order in _appDbContext.OrderHistory){
 				_appDbContext.OrderHistory.Remove(order);
 			}
 		}
 
 	}
 	
-	public void updateOrder(IOrder order, int id){
+	public void updateOrder(Order _order, int id){
 
-		// first i will delete order by id
+		_order.id = id;
 
-		this.deleteOrder(id);
-
-		// second i will ensure that the order id is equal
-		// to the id given (this is more a failsafe)
-
-		order.id = id;
-
-		// third i will add the order back to the list
-		//
-
-		_appDbContext.OrderHistory.Add(order);
+		var order = _appDbContext.OrderHistory.Attach(_order);
+		var orderState = Microsoft.EntityFrameworkCore.EntityState.Modified;
+		_appDbContext.SaveChanges();
 
 	}
-	public void updateOrder(IOrder _order, string customer){
+	public void updateOrder(Order _order, string customer){
 
 		_order.customer = customer;
 
@@ -177,10 +170,12 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 	}
 
-	public IEnumerable<IOrder> getOrderHistory(){
+	public IEnumerable<Order> getOrderHistory(){
 
 		return _appDbContext.OrderHistory;
 	}	
+
+
 
 
 

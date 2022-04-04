@@ -15,7 +15,7 @@ public class OrderHistoryRAM : IOrderHistory
 	// so we don't have to implement them 
 	
 	
-        private List<IOrder> _orderHistory;
+        private List<Order> _orderHistory;
 
 	public OrderHistoryRAM(){
 
@@ -28,14 +28,14 @@ public class OrderHistoryRAM : IOrderHistory
 		// i choose not to because i will then have to register
 		// not just the orderhistory service but the order service
 
-		_orderHistory = new List<IOrder>();
+		_orderHistory = new List<Order>();
 
 
 	}
 
 	// for order creation, we just use the add function within the list
 
-	public void createOrder(IOrder order){
+	public void createOrder(Order order){
 
 		// first i need a function to find the max id in my 
 		// _orderHistory
@@ -63,9 +63,9 @@ public class OrderHistoryRAM : IOrderHistory
 	// so we need a get method to retrieve the correct object for removal
 	//
 	
-	public IOrder getOrder(int id){
+	public Order getOrder(int id){
 
-		IOrder order;
+		Order order;
 		
 		order = _orderHistory.FirstOrDefault(Order => Order.id == id);	
 
@@ -82,9 +82,9 @@ public class OrderHistoryRAM : IOrderHistory
 
 	}
 	
-	public IOrder getOrder(string customer){
+	public Order getOrder(string customer){
 
-		IOrder order;
+		Order order;
 		
 		order = _orderHistory.FirstOrDefault(Order => Order.customer
 			       	== customer);	
@@ -98,7 +98,7 @@ public class OrderHistoryRAM : IOrderHistory
 
 	public void deleteOrder(int id){
 
-		IOrder order;
+		Order order;
 
 
 		if(this.getOrder(id) != null){
@@ -113,7 +113,7 @@ public class OrderHistoryRAM : IOrderHistory
 
 	public void deleteOrder(string customer){
 
-		IOrder order;
+		Order order;
 
 		order = this.getOrder(customer);
 
@@ -133,7 +133,7 @@ public class OrderHistoryRAM : IOrderHistory
 
 	}
 	
-	public void updateOrder(IOrder order, int id){
+	public void updateOrder(Order order, int id){
 
 		// first i will delete order by id
 
@@ -150,7 +150,7 @@ public class OrderHistoryRAM : IOrderHistory
 		_orderHistory.Add(order);
 
 	}
-	public void updateOrder(IOrder order, string customer){
+	public void updateOrder(Order order, string customer){
 
 		// first i will delete order by id
 
@@ -168,14 +168,9 @@ public class OrderHistoryRAM : IOrderHistory
 
 	}
 
-	public IEnumerable<IOrder> getOrderHistory(){
+	public IEnumerable<Order> getOrderHistory(){
 
 		return _orderHistory;
 	}	
-
-
-
-
-
 }
 

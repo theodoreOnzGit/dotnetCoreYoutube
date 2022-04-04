@@ -19,8 +19,12 @@ public interface IAppDbContext : IAsyncDisposable, IDisposable,
        Microsoft.EntityFrameworkCore.Internal.IDbSetCache
 {
 	IAppDbContext get();
-	public DbSet<IOrder> OrderHistory { get; set; }
-        int SaveChanges();	
+	// you cannot use Interfaces as types in DbSet
+	// u can in lists, but not dbset
+	public DbSet<Order> OrderHistory { get; set; }
+        int SaveChanges();
+
+	void deleteDatabase();
 }
 
 
@@ -32,7 +36,7 @@ public class  AppDbContextTightCouple : DbContext,IAppDbContext
 	public AppDbContextTightCouple(){
 
 		this.customiseMariaDbServer();
-		
+		this.Database.EnsureCreated();
 	}
 
 	// so i'm going to use mariadb connection string and options
@@ -66,16 +70,19 @@ public class  AppDbContextTightCouple : DbContext,IAppDbContext
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
 
-		this.customiseMariaDbServer();
 		optionsBuilder.UseMySql(connectionString,serverVersion);
 
 		// i then create the database if it doesn't exist
-		this.Database.EnsureCreated();
 
 	}
 
-	public DbSet<IOrder> OrderHistory { get; set; } 
+	public DbSet<Order> OrderHistory { get; set; } 
 
+	public void deleteDatabase(){
+
+		this.Database.EnsureDeleted();
+	
+	}
 
 	public IAppDbContext get(){
 

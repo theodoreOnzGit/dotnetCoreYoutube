@@ -27,18 +27,17 @@ public class dataStorageModel : PageModel
     // for data storage
 
     private IOrderHistory _orderHistory;
-    private IOrder _order;
+    private Order _order;
 
     public dataStorageModel(ILogger<dataStorageModel> logger,
-		    IOrderHistory orderHistory,
-		    IOrder order)
+		    IOrderHistory orderHistory)
     {
         _logger = logger;
 
 	// this one does dependency injection for order history object
 	
 	_orderHistory = orderHistory;
-	_order = order;
+	_order = new Order();
 
 
 	this.orderHistoryDisplay = _orderHistory.getOrderHistory();	    
@@ -69,7 +68,7 @@ public class dataStorageModel : PageModel
     public string sides { get; set; }
 
 
-    public IEnumerable<IOrder> orderHistoryDisplay;
+    public IEnumerable<Order> orderHistoryDisplay;
 
     public void OnPostSubmitOrder(){
 
