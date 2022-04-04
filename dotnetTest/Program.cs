@@ -30,8 +30,9 @@ builder.Services.AddSingleton<IRNGSingleton,RNGSingleton>();
 
 // here we are adding services for data storage
 
-builder.Services.AddSingleton<IOrderHistory, OrderHistoryRAM>();
 builder.Services.AddScoped<IOrder, Order>();
+builder.Services.AddScoped<IAppDbContext,AppDbContextTightCouple>();
+builder.Services.AddSingleton<IOrderHistory, OrderHistoryRAM>();
 
 var app = builder.Build();
 
