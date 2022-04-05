@@ -147,7 +147,7 @@ public class OrderHistoryMariaDB : IOrderHistory
 		_order.Id = id;
 
 		var order = _appDbContext.OrderHistory.Attach(_order);
-		var orderState = Microsoft.EntityFrameworkCore.EntityState.Modified;
+		order.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 		_appDbContext.SaveChanges();
 
 	}
@@ -156,11 +156,14 @@ public class OrderHistoryMariaDB : IOrderHistory
 		_order.customer = customer;
 
 		var order = _appDbContext.OrderHistory.Attach(_order);
-		var orderState = Microsoft.EntityFrameworkCore.EntityState.Modified;
+		order.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 		_appDbContext.SaveChanges();
 
 
 	}
+
+	// now provding overloads since we may need the updateOrder function to return
+	
 
 	public IEnumerable<Order> getOrderHistory(){
 
