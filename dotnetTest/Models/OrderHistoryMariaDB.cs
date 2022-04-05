@@ -137,6 +137,9 @@ public class OrderHistoryMariaDB : IOrderHistory
 		}
 
 		_appDbContext.SaveChanges();
+
+		_appDbContext.deleteDatabase();
+		_appDbContext.createDatabase();
 	}
 	
 	public void updateOrder(Order _order, int id){

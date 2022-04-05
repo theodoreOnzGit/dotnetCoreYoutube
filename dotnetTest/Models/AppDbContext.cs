@@ -22,6 +22,7 @@ public interface IAppDbContext : IAsyncDisposable, IDisposable,
         int SaveChanges();
 
 	void deleteDatabase();
+	void createDatabase();
 }
 
 
@@ -78,6 +79,12 @@ public class  AppDbContextTightCouple : DbContext,IAppDbContext
 	public void deleteDatabase(){
 
 		this.Database.EnsureDeleted();
+	
+	}
+
+	public void createDatabase(){
+
+		this.Database.EnsureCreated();
 	
 	}
 
