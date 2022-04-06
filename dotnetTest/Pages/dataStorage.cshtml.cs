@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using dotnetTest.Models;
 
+// this namespace is for validation of forms
+
+using System.ComponentModel.DataAnnotations;
+
 namespace dotnetTest.Pages;
 
 public class dataStorageModel : PageModel
@@ -34,4 +38,45 @@ public class dataStorageModel : PageModel
 
 	    _componentCollection.clearList();
     }
+
+    public void OnPostAddComponent(){
+
+	    if(ModelState.IsValid){
+
+	    Component newComponent = new Component();
+
+	    newComponent.Id = 1;
+	    newComponent.name = name;
+	    newComponent.componentType = componentType;
+	    newComponent.temperatureC = temperatureC;
+	    newComponent.pressurePa = pressurePa;
+	    newComponent.massFlowrateKgPerS = massFlowrateKgPerS;
+
+	    _componentCollection.list.Add(newComponent);
+	    }
+
+    }
+
+    // here are the models for model binding
+    //
+
+    [BindProperty]
+    [Required]
+    public string name { get; set; }
+
+    [BindProperty]
+    [Required]
+    public string componentType { get; set; }
+
+    [BindProperty]
+    [Required]
+    public double temperatureC { get; set; }
+
+    [BindProperty]
+    [Required]
+    public double pressurePa { get; set; }
+
+    [BindProperty]
+    [Required]
+    public double massFlowrateKgPerS { get; set; }
 }
