@@ -1,7 +1,13 @@
+// use the dotnetTest Models namespace for dataStorage and other models
+
+using dotnetTest.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IComponentCollection, ComponentList>();
 
 var app = builder.Build();
 
