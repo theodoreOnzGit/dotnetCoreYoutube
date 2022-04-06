@@ -15,13 +15,16 @@ public class dataStorageModel : PageModel
 {
     private readonly ILogger<dataStorageModel> _logger;
 
-    public IComponentCollection _componentCollection;
+    public List<Component>  componentList { get; set; }
+
+    private IComponentRepository _componentRepo;
 
     public dataStorageModel(ILogger<dataStorageModel> logger,
-		    IComponentCollection componentCollection)
+		    IComponentRepository componentRepo)
     {
         _logger = logger;
-	_componentCollection = componentCollection;
+	_componentRepo = componentRepo;
+	componentList = _componentRepo.getAllComponents();
     }
 
     public void OnGet()
@@ -31,12 +34,15 @@ public class dataStorageModel : PageModel
     
     public void OnPostPopulate(){
 
-	    _componentCollection.populateList();
+	    _componentRepo.populateComponents();
+	    componentList = _componentRepo.getAllComponents();
+
     }
 
     public void OnPostClearAll(){
 
-	    _componentCollection.clearList();
+	    _componentRepo.clearAllComponents();
+	    componentList = _componentRepo.getAllComponents();
     }
 
     public void OnPostAddComponent(){
@@ -53,7 +59,7 @@ public class dataStorageModel : PageModel
 		    newComponent.pressurePa = this.pressurePa;
 		    newComponent.massFlowrateKgPerS = this.massFlowrateKgPerS;
 
-		    _componentCollection.list.Add(newComponent);
+		    _componentRepo.createComponent(newComponent);
 	    }
     }
 
