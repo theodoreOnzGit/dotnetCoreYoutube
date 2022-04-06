@@ -41,20 +41,20 @@ public class dataStorageModel : PageModel
 
     public void OnPostAddComponent(){
 
+
 	    if(ModelState.IsValid){
 
-	    Component newComponent = new Component();
+		    Component newComponent = new Component();
 
-	    newComponent.Id = 1;
-	    newComponent.name = name;
-	    newComponent.componentType = componentType;
-	    newComponent.temperatureC = temperatureC;
-	    newComponent.pressurePa = pressurePa;
-	    newComponent.massFlowrateKgPerS = massFlowrateKgPerS;
+		    newComponent.Id = 1;
+		    newComponent.name = name;
+		    newComponent.componentType = componentType;
+		    newComponent.temperatureC = temperatureC;
+		    newComponent.pressurePa = pressurePa;
+		    newComponent.massFlowrateKgPerS = massFlowrateKgPerS;
 
-	    _componentCollection.list.Add(newComponent);
+		    _componentCollection.list.Add(newComponent);
 	    }
-
     }
 
     // here are the models for model binding
