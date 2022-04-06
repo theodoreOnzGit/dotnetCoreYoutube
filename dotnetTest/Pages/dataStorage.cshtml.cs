@@ -47,11 +47,11 @@ public class dataStorageModel : PageModel
 		    Component newComponent = new Component();
 
 		    newComponent.Id = 1;
-		    newComponent.name = name;
-		    newComponent.componentType = componentType;
-		    newComponent.temperatureC = temperatureC;
-		    newComponent.pressurePa = pressurePa;
-		    newComponent.massFlowrateKgPerS = massFlowrateKgPerS;
+		    newComponent.name = this.name;
+		    newComponent.componentType = this.componentType;
+		    newComponent.temperatureC = this.temperatureC;
+		    newComponent.pressurePa = this.pressurePa;
+		    newComponent.massFlowrateKgPerS = this.massFlowrateKgPerS;
 
 		    _componentCollection.list.Add(newComponent);
 	    }
