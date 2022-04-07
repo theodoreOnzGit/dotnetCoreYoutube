@@ -146,18 +146,22 @@ public class OrderHistoryMariaDB : IOrderHistory
 
 		_order.Id = id;
 
-		var order = _appDbContext.OrderHistory.Attach(_order);
-		order.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-		_appDbContext.SaveChanges();
+		if(this.getOrder(id) != null){
+			var order = _appDbContext.OrderHistory.Attach(_order);
+			order.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			_appDbContext.SaveChanges();
 
+		}
 	}
 	public void updateOrder(Order _order, string customer){
 
 		_order.customer = customer;
 
-		var order = _appDbContext.OrderHistory.Attach(_order);
-		order.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-		_appDbContext.SaveChanges();
+		if(this.getOrder(customer) != null){
+			var order = _appDbContext.OrderHistory.Attach(_order);
+			order.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			_appDbContext.SaveChanges();
+		}
 
 
 	}
