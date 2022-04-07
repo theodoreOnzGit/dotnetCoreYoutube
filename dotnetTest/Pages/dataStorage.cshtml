@@ -49,6 +49,19 @@
 	    
 	    <button type = "submit" class = "btn btn-primary" style="width:150px" asp-page-handler="ClearAll">Clear All</button>
 	    <button type = "submit" class = "btn btn-primary" style="width:150px" asp-page-handler="Populate">Populate</button>
+
+
+	    <p> </p>
+
+	    <p>
+	    Enter id for deleting or updating components 
+	    <input asp-for="Id" />
+	    <span asp-validation-for="Id"></span>
+	    </p>
+
+
+	    <button type = "submit" class = "btn btn-primary" style="width:150px" asp-page-handler="DeleteComponent">Delete Component</button>
+	    <button type = "submit" class = "btn btn-primary" style="width:150px" asp-page-handler="UpdateComponent">Update Component</button>
     </form>
     <table>
 	    <thead>

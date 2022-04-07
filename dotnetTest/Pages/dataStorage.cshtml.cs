@@ -63,8 +63,37 @@ public class dataStorageModel : PageModel
 	    }
     }
 
+    public void OnPostDeleteComponent(){
+
+	    _componentRepo.deleteComponent(this.Id);
+    }
+
+    public void OnPostUpdateComponent(){
+
+	    if(this.Id != null){
+
+		    if(ModelState.IsValid){
+
+			    Component newComponent = new Component();
+
+			    newComponent.Id = this.Id;
+			    newComponent.name = this.name;
+			    newComponent.componentType = this.componentType;
+			    newComponent.temperatureC = this.temperatureC;
+			    newComponent.pressurePa = this.pressurePa;
+			    newComponent.massFlowrateKgPerS = this.massFlowrateKgPerS;
+
+			    _componentRepo.updateComponent(Id,newComponent);
+		    }
+	    }
+    }
+	
+
     // here are the models for model binding
     //
+
+    [BindProperty]
+    public int Id { get; set; }
 
     [BindProperty]
     [Required]
