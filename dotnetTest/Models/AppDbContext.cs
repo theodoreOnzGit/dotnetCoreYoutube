@@ -7,7 +7,9 @@ namespace dotnetTest.Models;
 
 public interface IAppDbContext
 {
+	int SaveChanges();
 
+	 DbSet<Component> componentCollection { get; set; }
 }
 
 public class AppDbContext : DbContext, IAppDbContext

@@ -10,7 +10,9 @@ public interface IComponentCollection
 	void populateList();
 	void clearList();
 
-
+	Component getPipe1();
+	Component getPump1();
+	Component getHeatExchanger1();
 }
 
 

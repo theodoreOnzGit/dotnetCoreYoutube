@@ -8,14 +8,15 @@ public class ComponentRepoMariaDb : IComponentRepository
 	// the repository
 	// not how the repository actually stores data
 	
+	private IAppDbContext _DbContext;
+	
 	private IComponentCollection _componentCollection;
 
-	public List<Component> componentList;
+	public ComponentRepoMariaDb(IAppDbContext DbContext,
+			IComponentCollection componentCollection){
 
-	public ComponentRepoMariaDb(IComponentCollection componentCollection){
-
+		this._DbContext = DbContext;
 		this._componentCollection = componentCollection;
-		this.componentList = componentCollection.list;
 
 	}
 
@@ -24,14 +25,20 @@ public class ComponentRepoMariaDb : IComponentRepository
       	
 	public void createComponent(Component component){
 
-		this.componentList.Add(component);
-		this.SaveChanges();
+
+		this._DbContext.componentCollection.Add(component);
+		this._DbContext.SaveChanges();
 	}
 
 	public void populateComponents(){
 
-		this._componentCollection.populateList();
-		this.componentList = this._componentCollection.list;
+		var pipe1 = this._componentCollection.getPipe1();
+		var pump1 = this._componentCollection.getPump1();
+		var heatExchanger1 = this._componentCollection.getHeatExchanger1();
+		
+		this.createComponent(pipe1);
+		this.createComponent(pump1);
+		this.createComponent(heatExchanger1);
 
 	}
 
@@ -39,62 +46,48 @@ public class ComponentRepoMariaDb : IComponentRepository
 	// to be changed later to fit mariaDb repository
 	public IEnumerable<Component> getAllComponents(){
 
-		return this.componentList;
+		IEnumerable<Component> componentEnumerable;
+
+		componentEnumerable = this._DbContext.componentCollection;
+
+		return componentEnumerable;
 	}
 
 
 	public void updateComponent(int Id, Component component){
-
-		component.Id = Id;
-
-		// i will delete component by id first
-
-		this.deleteComponent(Id);
-		this.createComponent(component);
-		
-
-
 	}
 
 	// delete operations
 	
 	public void deleteComponent(Component component){
 
-		this.componentList.Remove(component);
-		this.SaveChanges();
+		this._DbContext.componentCollection.Remove(component);
+		this._DbContext.SaveChanges();
 	}
 
 	public void deleteComponent(int Id){
 
-		Component componentToDelete;
-		componentToDelete = this.getComponent(Id);
+		Component component = this.getComponent(Id);
 
-		if(componentToDelete != null){
-
-			this.deleteComponent(componentToDelete);
+		if(component != null){
+			this.deleteComponent(component);
 		}
 
 	}
 
 	public void clearAllComponents(){
-		this.componentList.Clear();
-		this.SaveChanges();
 	}
 
 	// these functions operate under the hood
 	
-	private void SaveChanges(){
-
-		this._componentCollection.list = this.componentList;
-
-	}
 	
 	private Component getComponent(int id){
 
-		Component desiredComponent;
-		desiredComponent = this.componentList.FirstOrDefault(Component => Component.Id == id);
+		Component component;
 
-		return desiredComponent;
+		component = this._DbContext.componentCollection.Find(id);
+
+		return component;
 	}
 
 
