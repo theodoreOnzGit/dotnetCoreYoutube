@@ -20,7 +20,7 @@ public interface IComponentRepository
 	void populateComponents();
 
 	// to be changed later to fit mariaDb repository
-	List<Component> getAllComponents();
+	IEnumerable<Component> getAllComponents();
 
 	void updateComponent(int Id, Component component);
 

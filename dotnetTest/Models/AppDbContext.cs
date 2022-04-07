@@ -12,7 +12,7 @@ public interface IAppDbContext
 
 public class AppDbContext : DbContext, IAppDbContext
 {
-	public List<Component> list { get; set; }
+	public DbSet<Component> componentCollection { get; set; }
 
 	private MariaDbServerVersion serverVersion { get; set; }
 

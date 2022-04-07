@@ -37,7 +37,7 @@ public class ComponentRepoRAM : IComponentRepository
 
 
 	// to be changed later to fit mariaDb repository
-	public List<Component> getAllComponents(){
+	public IEnumerable<Component> getAllComponents(){
 
 		return this.componentList;
 	}

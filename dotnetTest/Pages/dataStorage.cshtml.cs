@@ -15,7 +15,7 @@ public class dataStorageModel : PageModel
 {
     private readonly ILogger<dataStorageModel> _logger;
 
-    public List<Component>  componentList { get; set; }
+    public IEnumerable<Component>  componentEnumerable { get; set; }
 
     private IComponentRepository _componentRepo;
 
@@ -24,7 +24,7 @@ public class dataStorageModel : PageModel
     {
         _logger = logger;
 	_componentRepo = componentRepo;
-	componentList = _componentRepo.getAllComponents();
+	componentEnumerable = _componentRepo.getAllComponents();
     }
 
     public void OnGet()
@@ -35,14 +35,14 @@ public class dataStorageModel : PageModel
     public void OnPostPopulate(){
 
 	    _componentRepo.populateComponents();
-	    componentList = _componentRepo.getAllComponents();
+	    componentEnumerable = _componentRepo.getAllComponents();
 
     }
 
     public void OnPostClearAll(){
 
 	    _componentRepo.clearAllComponents();
-	    componentList = _componentRepo.getAllComponents();
+	    componentEnumerable = _componentRepo.getAllComponents();
     }
 
     public void OnPostAddComponent(){
