@@ -46,14 +46,12 @@ public class ComponentRepoRAM : IComponentRepository
 
 	public void updateComponent(int Id, Component component){
 
-		if(){
 		component.Id = Id;
 
 		// i will delete component by id first
 
 		this.deleteComponent(Id);
 		this.createComponent(component);
-		}
 		
 
 
