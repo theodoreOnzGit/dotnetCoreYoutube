@@ -39,6 +39,7 @@ public class ComponentRepoSimpleMariaDb : IComponentRepository
 		var pipe1 = this._componentCollection.getPipe1();
 		var pump1 = this._componentCollection.getPump1();
 		var heatExchanger1 = this._componentCollection.getHeatExchanger1();
+
 		
 		this.createComponent(pipe1);
 		this.createComponent(pump1);
@@ -60,11 +61,13 @@ public class ComponentRepoSimpleMariaDb : IComponentRepository
 
 	public void updateComponent(int Id, Component component){
 		
-		component.Id = Id;
-		var attachedComponent = this._DbContext.componentCollection.Attach(component);
-		attachedComponent.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-		this._DbContext.SaveChanges();
-
+		var componentToEdit = this.getComponent(Id);
+		if(componentToEdit != null){
+			component.Id = Id;
+			var attachedComponent = this._DbContext.componentCollection.Attach(component);
+			attachedComponent.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			this._DbContext.SaveChanges();
+		}
 
 	}
 
@@ -87,12 +90,15 @@ public class ComponentRepoSimpleMariaDb : IComponentRepository
 	}
 
 	public void clearAllComponents(){
+
+		this.deleteDatabase();
+		this.createDatabase();
 		
-		foreach(var component in this._DbContext.componentCollection){
+		// foreach(var component in this._DbContext.componentCollection){
 
-			this.deleteComponent(component);
+		//	this.deleteComponent(component);
 
-		}
+		//}
 	}
 
 	// these functions operate under the hood

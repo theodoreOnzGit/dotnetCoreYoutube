@@ -54,7 +54,6 @@ public class ComponentList : IComponentCollection
 
 		Component pipe1 = new Component();
 
-		pipe1.Id = 1;
 		pipe1.name = "myPipe";
 		pipe1.componentType = "pipe";
 		pipe1.temperatureC = 25;
@@ -70,7 +69,6 @@ public class ComponentList : IComponentCollection
 
 		Component pump1 = new Component();
 
-		pump1.Id = 2;
 		pump1.name = "myPump";
 		pump1.componentType = "pump";
 		pump1.temperatureC = 25;
@@ -85,7 +83,6 @@ public class ComponentList : IComponentCollection
 
 		Component heatExchanger1 = new Component();
 
-		heatExchanger1.Id = 3;
 		heatExchanger1.name = "myHeatExchanger";
 		heatExchanger1.componentType = "heatExchanger";
 		heatExchanger1.temperatureC = 25;

@@ -24,6 +24,7 @@ public class ComponentRepoRAM : IComponentRepository
       	
 	public void createComponent(Component component){
 
+		component.Id = 1;
 		this.componentList.Add(component);
 		this.SaveChanges();
 	}
@@ -45,12 +46,14 @@ public class ComponentRepoRAM : IComponentRepository
 
 	public void updateComponent(int Id, Component component){
 
+		if(){
 		component.Id = Id;
 
 		// i will delete component by id first
 
 		this.deleteComponent(Id);
 		this.createComponent(component);
+		}
 		
 
 
