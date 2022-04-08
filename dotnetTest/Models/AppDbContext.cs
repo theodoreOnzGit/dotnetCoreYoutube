@@ -9,10 +9,15 @@ public interface IAppDbContext
 {
 	int SaveChanges();
 
-	 DbSet<Component> componentCollection { get; set; }
+	DbSet<Component> componentCollection { get; set; }
+
+	void createDatabase();
+	void deleteDatabase();
 }
 
-public class AppDbContext : DbContext, IAppDbContext
+// this AppDbContext is called Simple because we don't use EF Core
+// migrations
+public class AppDbContextSimple : DbContext, IAppDbContext
 {
 	public DbSet<Component> componentCollection { get; set; }
 
@@ -20,7 +25,7 @@ public class AppDbContext : DbContext, IAppDbContext
 
 	private string connectionString { get; set; }
 
-	public AppDbContext(){
+	public AppDbContextSimple(){
 
 		// let's make a version object for the MariaDbServerVersion Object
 		Version version;
@@ -38,5 +43,17 @@ public class AppDbContext : DbContext, IAppDbContext
 
 		optionsBuilder.UseMySql(this.connectionString, this.serverVersion);
 
+	}
+
+	// to create and delete databases without migrations
+	// use:
+	// https://docs.microsoft.com/en-us/ef/core/managing-schemas/ensure-created
+	//
+	public void createDatabase(){
+		this.Database.EnsureCreated();
+	}
+
+	public void deleteDatabase(){
+		this.Database.EnsureDeleted();
 	}
 }

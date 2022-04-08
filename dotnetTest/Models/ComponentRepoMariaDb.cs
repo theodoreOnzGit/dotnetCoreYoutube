@@ -2,21 +2,25 @@
 
 namespace dotnetTest.Models;
 
-public class ComponentRepoMariaDb : IComponentRepository
+public class ComponentRepoSimpleMariaDb : IComponentRepository
 {
 	// we will only deal with inputs and outputs of 
 	// the repository
 	// not how the repository actually stores data
 	
+	// the repository is called "simple" because we don't use
+	// EF Core Migrations
 	private IAppDbContext _DbContext;
 	
 	private IComponentCollection _componentCollection;
 
-	public ComponentRepoMariaDb(IAppDbContext DbContext,
+	public ComponentRepoSimpleMariaDb(IAppDbContext DbContext,
 			IComponentCollection componentCollection){
 
 		this._DbContext = DbContext;
 		this._componentCollection = componentCollection;
+
+		this._DbContext.createDatabase();
 
 	}
 
@@ -55,6 +59,13 @@ public class ComponentRepoMariaDb : IComponentRepository
 
 
 	public void updateComponent(int Id, Component component){
+		
+		component.Id = Id;
+		var attachedComponent = this._DbContext.componentCollection.Attach(component);
+		attachedComponent.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+		this._DbContext.SaveChanges();
+
+
 	}
 
 	// delete operations
@@ -76,6 +87,12 @@ public class ComponentRepoMariaDb : IComponentRepository
 	}
 
 	public void clearAllComponents(){
+		
+		foreach(var component in this._DbContext.componentCollection){
+
+			this.deleteComponent(component);
+
+		}
 	}
 
 	// these functions operate under the hood
@@ -90,6 +107,15 @@ public class ComponentRepoMariaDb : IComponentRepository
 		return component;
 	}
 
+	public void createDatabase(){
+
+		this._DbContext.createDatabase();
+	}
+
+	public void deleteDatabase(){
+
+		this._DbContext.deleteDatabase();
+	}
 
 
 }

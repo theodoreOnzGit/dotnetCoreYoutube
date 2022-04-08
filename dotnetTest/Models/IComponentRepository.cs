@@ -30,6 +30,11 @@ public interface IComponentRepository
 	void deleteComponent(int Id);
 	void clearAllComponents();
 
+	// these are here to delete and create databases
+	// especially if we don't use migrations in EF Core
+
+	void createDatabase();
+	void deleteDatabase();
 
 
 }

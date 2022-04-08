@@ -97,6 +97,10 @@ public class ComponentRepoRAM : IComponentRepository
 		return desiredComponent;
 	}
 
+	public void createDatabase(){
+	}
 
+	public void deleteDatabase(){
+	}
 
 }

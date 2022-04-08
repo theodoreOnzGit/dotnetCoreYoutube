@@ -10,7 +10,9 @@ builder.Services.AddRazorPages();
 // this adds an in memory list throughout the life of the web server
 builder.Services.AddSingleton<IComponentCollection, ComponentList>();
 
-builder.Services.AddScoped<IComponentRepository, ComponentRepoRAM>();
+// builder.Services.AddScoped<IComponentRepository, ComponentRepoRAM>();
+builder.Services.AddScoped<IAppDbContext, AppDbContextSimple>();
+builder.Services.AddScoped<IComponentRepository, ComponentRepoSimpleMariaDb>();
 
 var app = builder.Build();
 
