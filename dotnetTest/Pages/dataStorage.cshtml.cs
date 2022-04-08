@@ -52,7 +52,6 @@ public class dataStorageModel : PageModel
 
 		    Component newComponent = new Component();
 
-		    newComponent.Id = 1;
 		    newComponent.name = this.name;
 		    newComponent.componentType = this.componentType;
 		    newComponent.temperatureC = this.temperatureC;
