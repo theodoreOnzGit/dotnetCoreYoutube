@@ -2,6 +2,10 @@
 
 using dotnetTest.Models;
 
+// for AddDbContet, we need the microsoft EFCore namespace
+
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +16,23 @@ builder.Services.AddSingleton<IComponentCollection, ComponentList>();
 
 // builder.Services.AddScoped<IComponentRepository, ComponentRepoRAM>();
 builder.Services.AddScoped<IAppDbContext, AppDbContextSimple>();
+
+// this is the AddDbContext way of adding a scoped service for dependency
+// injection
+
+Version version = new Version(10,7,3);
+MariaDbServerVersion serverVersion = new MariaDbServerVersion(version);
+string connectionString = "Server=localhost; Database=componentDatabase; User=mariaDbUser; Password=myPassword";
+
+builder.Services.AddDbContext<AppDbContext>(
+		optionsBuilder => 
+		optionsBuilder.UseMySql(connectionString,serverVersion));
+
+// syntax is here if you want to use AddDbContextPool
+//builder.Services.AddDbContextPool<AppDbContext>(
+//		optionsBuilder => 
+//		optionsBuilder.UseMySql(connectionString,serverVersion));
+
 builder.Services.AddScoped<IComponentRepository, ComponentRepoSimpleMariaDb>();
 
 var app = builder.Build();

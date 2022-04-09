@@ -15,6 +15,27 @@ public interface IAppDbContext
 	void deleteDatabase();
 }
 
+
+public class AppDbContext : DbContext, IAppDbContext
+{
+
+	public DbSet<Component> componentCollection { get; set; }
+
+
+	// constructor is here, we pass in DbContextOptions
+	
+	public AppDbContext(DbContextOptions<AppDbContext> contextOptions)
+		: base(contextOptions)
+	{
+	}
+
+	public void createDatabase(){
+	}
+
+	public void deleteDatabase(){
+	}
+}
+
 // this AppDbContext is called Simple because we don't use EF Core
 // migrations
 public class AppDbContextSimple : DbContext, IAppDbContext

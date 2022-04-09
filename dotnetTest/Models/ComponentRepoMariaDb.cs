@@ -91,14 +91,22 @@ public class ComponentRepoSimpleMariaDb : IComponentRepository
 
 	public void clearAllComponents(){
 
-		this.deleteDatabase();
-		this.createDatabase();
+		// this is the lazy way of clearing all components
+		//this.deleteDatabase();
+		//this.createDatabase();
+		//
+
+
+		// this is the proper way to clear all
+		// if we cannot use the create and drop API
+		// eg. in migrations
 		
-		// foreach(var component in this._DbContext.componentCollection){
+		foreach(Component component in this._DbContext.componentCollection){
 
-		//	this.deleteComponent(component);
+			this._DbContext.componentCollection.Remove(component);
+		}
 
-		//}
+		this._DbContext.SaveChanges();
 	}
 
 	// these functions operate under the hood
