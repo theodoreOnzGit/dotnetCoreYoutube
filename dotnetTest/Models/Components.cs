@@ -15,4 +15,6 @@ public class Component
 	public double pressurePa { get; set; }
 
 	public double massFlowrateKgPerS { get; set; }
+
+	public bool componentState { get; set; }
 }

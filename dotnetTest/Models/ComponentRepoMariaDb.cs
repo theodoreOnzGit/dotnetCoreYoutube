@@ -152,8 +152,6 @@ public class ComponentRepoMariaDb : IComponentRepository
 		this._DbContext = DbContext;
 		this._componentCollection = componentCollection;
 
-		this._DbContext.createDatabase();
-
 	}
 
 
@@ -253,15 +251,8 @@ public class ComponentRepoMariaDb : IComponentRepository
 		return component;
 	}
 
-	public void createDatabase(){
-
-		this._DbContext.createDatabase();
-	}
-
-	public void deleteDatabase(){
-
-		this._DbContext.deleteDatabase();
-	}
+	public void createDatabase(){}
+	public void deleteDatabase(){}
 
 
 }

@@ -45,6 +45,11 @@
 	    <span asp-validation-for="massFlowrateKgPerS"></span>
 	    </p>
 
+	    Is this component on or off?
+	    <input asp-for="componentState" />
+	    <span asp-validation-for="componentState"></span>
+	    </p>
+
 	    <button type = "submit" class = "btn btn-primary" style="width:150px" asp-page-handler="AddComponent">Add Component</button>
 	    
 	    <button type = "submit" class = "btn btn-primary" style="width:150px" asp-page-handler="ClearAll">Clear All</button>
@@ -72,6 +77,7 @@
 			    <th>temperatureC </th>
 			    <th>pressurePa </th>
 			    <th>massFlowrateKgPerS </th>
+			    <th>componentState (is this on?) </th>
 		    </tr>
 
 	    </thead>
@@ -87,6 +93,7 @@
 			    <td>@component.temperatureC </td>
 			    <td>@component.pressurePa </td>
 			    <td>@component.massFlowrateKgPerS </td>
+			    <td>@component.componentState </td>
 
 		    </tr>
 

@@ -57,6 +57,7 @@ public class dataStorageModel : PageModel
 		    newComponent.temperatureC = this.temperatureC;
 		    newComponent.pressurePa = this.pressurePa;
 		    newComponent.massFlowrateKgPerS = this.massFlowrateKgPerS;
+		    newComponent.componentState = this.componentState;
 
 		    _componentRepo.createComponent(newComponent);
 	    }
@@ -81,6 +82,7 @@ public class dataStorageModel : PageModel
 			    newComponent.temperatureC = this.temperatureC;
 			    newComponent.pressurePa = this.pressurePa;
 			    newComponent.massFlowrateKgPerS = this.massFlowrateKgPerS;
+			    newComponent.componentState = this.componentState;
 
 			    _componentRepo.updateComponent(Id,newComponent);
 		    }
@@ -113,4 +115,7 @@ public class dataStorageModel : PageModel
     [BindProperty]
     [Required]
     public double massFlowrateKgPerS { get; set; }
+
+    [BindProperty]
+    public bool componentState { get; set; }
 }
