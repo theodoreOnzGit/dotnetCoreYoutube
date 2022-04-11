@@ -33,7 +33,7 @@ builder.Services.AddDbContext<AppDbContext>(
 //		optionsBuilder => 
 //		optionsBuilder.UseMySql(connectionString,serverVersion));
 
-builder.Services.AddScoped<IComponentRepository, ComponentRepoSimpleMariaDb>();
+builder.Services.AddScoped<IComponentRepository, ComponentRepoMariaDb>();
 
 var app = builder.Build();
 
