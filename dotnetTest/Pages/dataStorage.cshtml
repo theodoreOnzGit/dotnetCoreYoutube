@@ -26,7 +26,10 @@
 
 	    <p>
 	    Enter Component Type here:
+	    <!--
 	    <input asp-for="componentType" />
+	    -->
+	    <select asp-for="componentType" asp-items="Model.dropDownListComponents"></select>
 	    <span asp-validation-for="componentType"></span>
 	    </p>
 	    <p>

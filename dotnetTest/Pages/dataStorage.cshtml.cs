@@ -9,6 +9,10 @@ using dotnetTest.Models;
 
 using System.ComponentModel.DataAnnotations;
 
+// this namespace is for SelectListItem
+
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace dotnetTest.Pages;
 
 public class dataStorageModel : PageModel
@@ -118,4 +122,13 @@ public class dataStorageModel : PageModel
 
     [BindProperty]
     public bool componentState { get; set; }
+
+    public List<SelectListItem> dropDownListComponents { get; } = new List<SelectListItem>
+    {
+	        new SelectListItem { Value = "heatExchanger", Text = "Heat Exchanger" },
+		new SelectListItem { Value = "pipe", Text = "pipe" },
+		new SelectListItem { Value = "pump", Text = "pump"  },
+    };
+
+
 }
