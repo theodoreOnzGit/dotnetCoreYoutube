@@ -191,8 +191,14 @@ public class ComponentRepoMariaDb : IComponentRepository
 
 	public void updateComponent(int Id, Component component){
 		
+		// warning, get method for component tracks changes, you need to untrack
 		var componentToEdit = this.getComponent(Id);
+		// we are going to untrack changes here
+
+		this._DbContext.ChangeTracker.Clear();
+
 		if(componentToEdit != null){
+
 			component.Id = Id;
 			var attachedComponent = this._DbContext.componentCollection.Attach(component);
 			attachedComponent.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -248,6 +254,15 @@ public class ComponentRepoMariaDb : IComponentRepository
 
 		component = this._DbContext.componentCollection.Find(id);
 
+		// i don't want get method to track changes
+		
+		// we also cannot change the property of a null object,
+		// we will get errors
+		if(component != null){
+
+			this._DbContext.Entry(component).State = Microsoft.EntityFrameworkCore.EntityState.Detached; 
+
+		}
 		return component;
 	}
 
