@@ -14,11 +14,15 @@ namespace dotnetTest.Pages;
 
 public class testPageModel : PageModel
 {
-    private readonly ILogger<testPageModel> _logger;
 
-    public testPageModel(ILogger<testPageModel> logger)
+	private readonly ICalcFns _calcFns;
+	private readonly ILogger<testPageModel> _logger;
+
+    public testPageModel(ILogger<testPageModel> logger,
+			ICalcFns calcFns)
     {
         _logger = logger;
+		this._calcFns = calcFns;
     }
 
 
@@ -36,122 +40,121 @@ public class testPageModel : PageModel
     // https://stackoverflow.com/questions/47463206/how-to-retrieve-a-service-in-razor-pages-with-dependency-injection
 
 
-    public void OnGet()
-    {
+	public void OnGet()
+	{
 
-    }
+	}
 
-    public string dataString { get; set; }
+	public string dataString { get; set; }
 
-    public void OnPostSubmit(){
+	public void OnPostSubmit(){
 
-	    string data = "result:";
+		string data = "result:";
 
-	    ViewData["dataString"] = data;
-
-
-            // forms implicitly give string values, not double,
-	    // we need to convert string to double using Convert
-	    //
-	    string temperatureValStr = Request.Form["Value"];
-            double temperatureVal = Convert.ToDouble(temperatureValStr);
+		ViewData["dataString"] = data;
 
 
-	    dataString = Convert.ToString(temperatureVal)+" "+"celsius"+"=";
-
-	    ViewData["dataString2"] = dataString;
-
-
-	    // now i want to declare a unit conversion, temp conversion object
-	    //
-
-	    UnitConversion.TempConversion tempConv = new UnitConversion.TempConversion();
-
-	    double tempF = tempConv.cToF(temperatureVal,2);
-	    string tempFString = Convert.ToString(tempF);
-
-	    dataString = tempF + " " + "Fahrenheit";
-
-	    ViewData["dataString3"] = dataString;
+		// forms implicitly give string values, not double,
+		// we need to convert string to double using Convert
+		//
+		string temperatureValStr = Request.Form["Value"];
+		double temperatureVal = Convert.ToDouble(temperatureValStr);
 
 
+		dataString = Convert.ToString(temperatureVal)+" "+"celsius"+"=";
 
-	    
+		ViewData["dataString2"] = dataString;
 
 
-    }
+		// now i want to declare a unit conversion, temp conversion object
+		//
+
+		UnitConversion.TempConversion tempConv = new UnitConversion.TempConversion();
+
+		double tempF = tempConv.cToF(temperatureVal,2);
+		string tempFString = Convert.ToString(tempF);
+
+		dataString = tempF + " " + "Fahrenheit";
+
+		ViewData["dataString3"] = dataString;
 
 
 
-    [BindProperty]
-    [Required]
-    [Range(-459.67,2.55e32)]
-    public double tempF { get; set; }
-
-    public void OnPostConvertFahrenheit(){
-
-	    if (ModelState.IsValid)
-	    {
-
-	    ViewData["tempF"] = "Results: " + tempF.ToString() + " F = ";
-
-	    double tempC;
-
-	    UnitConversion.TempConversion tempConv = new UnitConversion.TempConversion();
-
-
-	    tempC = tempConv.fToC(tempF);
-
-	    ViewData["tempC"] = tempC.ToString() + " C";
-	    }
-    }
-
-    [BindProperty]
-    [Required]
-    public double btuPerHr { get; set; }
-
-    public void OnPostConvertBtuPerHr(){
-
-	    // for dependency injection (manual) i first need to instantiate
-	    // objects
-	    //
-
-	    SimpleEnergyConversion energyConversion = new SimpleEnergyConversion();
-	    
-	    SimpleBaseUnitConversion baseUnitConversion = new SimpleBaseUnitConversion();
-	    
-	    PowerConversion powerConv;
-	    powerConv = new PowerConversion(energyConversion,baseUnitConversion);
-
-	    // the above process is what dependency injection is about:
-	    // declaring dependencies as objects and passing them into
-	    // the constructor
-	    //
-	    // the above way is quite manual and not really done
-	    // in real webpages
-	    //
-	    // first let's pass the btuPerHr into viewdata
-
-	    @ViewData["btuPerHr"] = btuPerHr;
-
-	    // we'll then use the power conversion method
-	    //
-	    double wattsResult;
-
-	    wattsResult = powerConv.btuPerHrToWatts(btuPerHr);
-
-	    @ViewData["wattsResult"] = wattsResult;
+	}
 
 
 
-	    
-	    
+	[BindProperty]
+	[Required]
+	[Range(-459.67,2.55e32)]
+	public double tempF { get; set; }
+
+	public void OnPostConvertFahrenheit(){
+
+		if (ModelState.IsValid)
+		{
+
+			ViewData["tempF"] = "Results: " + tempF.ToString() + " F = ";
+
+			double tempC;
+
+			UnitConversion.TempConversion tempConv = new UnitConversion.TempConversion();
 
 
+			tempC = tempConv.fToC(tempF);
 
+			ViewData["tempC"] = tempC.ToString() + " C";
+		}
+	}
 
-    }
+	[BindProperty]
+	[Required]
+	public double btuPerHr { get; set; }
 
+	public void OnPostConvertBtuPerHr(){
+
+		// for dependency injection (manual) i first need to instantiate
+		// objects
+		//
+
+		SimpleEnergyConversion energyConversion = new SimpleEnergyConversion();
+
+		SimpleBaseUnitConversion baseUnitConversion = new SimpleBaseUnitConversion();
+
+		PowerConversion powerConv;
+		powerConv = new PowerConversion(energyConversion,baseUnitConversion);
+
+		// the above process is what dependency injection is about:
+		// declaring dependencies as objects and passing them into
+		// the constructor
+		//
+		// the above way is quite manual and not really done
+		// in real webpages
+		//
+		// first let's pass the btuPerHr into viewdata
+
+		@ViewData["btuPerHr"] = btuPerHr;
+
+		// we'll then use the power conversion method
+		//
+		double wattsResult;
+
+		wattsResult = powerConv.btuPerHrToWatts(btuPerHr);
+
+		@ViewData["wattsResult"] = wattsResult;
+
+	}
+
+	[BindProperty]
+	public double testNumber { get; set; }
+
+	public double addedNumber { get; set; }
+
+	public void OnPostAdd(){
+
+		this.addedNumber = this._calcFns.addTwo(testNumber);
+
+	}
 
 
 }

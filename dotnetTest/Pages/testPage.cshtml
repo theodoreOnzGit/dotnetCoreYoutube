@@ -72,3 +72,13 @@
 
 </form>
 
+<form method="post">
+	<div class="border p-3 mt-4">
+		<h2 class="test primary pl-3">Class library test (add 2) </h2>
+		<input asp-for="testNumber" />
+		<span asp-validation-for="testNumber"></span>
+		<button type = "submit" class="btn btn-primary" style="width:150px;" asp-page-handler="Add">add</button>
+		@Model.addedNumber
+	</div>
+
+</form>

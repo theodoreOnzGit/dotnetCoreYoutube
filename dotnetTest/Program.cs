@@ -34,6 +34,11 @@ builder.Services.AddScoped<IOrder, Order>();
 builder.Services.AddScoped<IAppDbContext,AppDbContextTightCouple>();
 builder.Services.AddScoped<IOrderHistory, OrderHistoryMariaDB>();
 
+// here are dependencies for class library tests
+
+builder.Services.AddScoped<ICalcFns, VbLibCalcFns>();
+//builder.Services.AddScoped<ICalcFns, CsLibCalcFns>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
