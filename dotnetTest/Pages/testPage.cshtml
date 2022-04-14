@@ -1,186 +1,29 @@
 ﻿@page
 @model testPageModel
 @{
-    ViewData["Title"] = "testPage";
-
-
-    // use double forward slash to write comments
-
-    /*
-
-    this is the other way to ensure that a block of code is a comment
-
-    */
-
-
-    // this is how we define string variables
-
-    string strA;
-
-    strA = "hello this is test text, 12345";
-
-    // you can also define string variables in the following manner:
-
-    string strB = "hello i am string B";
-
-    // now let's do some math
-
-    double a,b,c,d;
-
-    a = 3.87;
-    b = 4.0;
-    c = 5.5;
-    d = 4;
-
-    // let's do some addition
-
-    double e = c+d;
-
-    // we can do division
-
-    double f = c/d;
-
-    // multiplication
-
-    double g = c*d;
-
-    // exponents
-
-    double h = Math.Pow(c,d);
-
-    // subtraction
-
-    double i = c-d;
-
-    // modulus, means remainder
-
-    double j = c%d;
-
-    // farenheit to celsius
-
-    double celsius,fahrenheit;
-
-    fahrenheit = 89.2;
-
-    celsius = (fahrenheit - 32)*5/9;
-    celsius = Math.Round(celsius,2);
-
-    Func<double,double> fToC = (f) => ( Math.Round((f-32.0)*5/9,3) );
-
-    Func<double,int,double> fToC2 = (f,decPlaces) =>  ( Math.Round((f-32.0)*5/9,decPlaces) ) ;
-
-    Func<double,double> fToC_1dp = (f) => ( fToC2(f,1) );
-    Func<double,double> fToC_2dp = (f) => ( fToC2(f,2) );
-    Func<double,double> fToC_3dp = (f) => ( fToC2(f,3) );
-
-    double f1,f2,f3,f4,f5;
-
-    f1 = 95;
-    f2 = 73;
-    f3 = 84;
-    f4 = 108;
-    f5 = 202;
-
-    double c1 = fToC(f1);
-    double c2 = fToC_1dp(f2);
-    double c3 = fToC_2dp(f3);
-    double c4 = fToC_3dp(f4);
-    double c5 = fToC2(f5,10);
-
-
-
-
 }
 
 @functions {
-
-    class tempConversion{
-
-        // lambda function for fahrenheit to celsius
-
-        public Func<double,int,double> fToC = (f,decPlaces) =>  ( Math.Round((f-32.0)*5/9,decPlaces) ) ;
-
-	// function celsius to fahrenheit
-
-	public double cToF(double tempC, int decPlaces){
-
-	    // type of output for tempF should be double
-
-	    double tempF;
-
-	    // assign a value to tempF
-
-	    tempF = 9.0/5.0*tempC+32.0;
-	    tempF = Math.Round(tempF,decPlaces);
-
-	    // give the function an output
-
-	    return tempF;
-
-
-	}
-
-    }
-
-
 }
 
 @{
-
-    // object declaration, first define the type
-
-    tempConversion t1;
-
-    // object declaration, second define the value
-
-    t1 = new tempConversion();
-
-    // do both things in the same line
-
-    tempConversion t2 = new tempConversion();
-
-    // let's declare an object with our new namespace
-
-    UnitConversion.TempConversion t3;
-    t3 = new UnitConversion.TempConversion();
-
-
 }
 
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
 
-    <p>@strA</p>
+    <form method = "post">
 
-    <p>@strB</p>
+	    <h1>Addition Library Test</h1>
+	    <p>
+	    <input asp-for="numberToAdd" />
+	    <span asp-validation-for="numberToAdd"></span>
+	    </p>
 
-    <h2>okay now let's print some numbers, double variables</h2>
-
-    <p>@a</p>
-    <p>@b</p>
-    <p>@c,@d</p>
-
-    <p>@e = @c+@d</p>
-
-    <p>@f = @c/@d</p>
-
-    <p>@g = @c*@d</p>
-    
-    <p>@h = @c^@d</p>
-    <p>@i = @c-@d</p>
-    <p>@j = @c%@d</p>
-
-    <h2>fahrenheit to celsius</h2>
-
-    <p>@fahrenheit F = @celsius C </p>
-    <p>@c1, @c2, @c3, @c4, @c5</p>
-
-    <p>@t1.fToC(88,1)C</p> 
-    <p>@t1.cToF(36.9,1)F</p>
-    <p>@(9.0/5)</p>
-
-    <p>@t3.cToF(36.7,1)</p>
+	    <button type = "submit" class = "btn btn-primary" style="width:150px" asp-page-handler="Add">Add</button>
+		@Model.numberResult
+	</form>
 
 
 </div>

@@ -2,8 +2,14 @@
 
 namespace csLibrary
 {
-    public class Class1
+    public class csLibMath
     {
+
+		public double addTwo(double x){
+
+			return x+2;
+
+		}
 
     }
 }

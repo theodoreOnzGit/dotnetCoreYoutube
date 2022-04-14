@@ -35,6 +35,13 @@ builder.Services.AddDbContext<AppDbContext>(
 
 builder.Services.AddScoped<IComponentRepository, ComponentRepoMariaDb>();
 
+
+// here is where we add services which test our libraries
+
+builder.Services.AddScoped<IMath, MathCsLib>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
