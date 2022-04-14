@@ -38,7 +38,7 @@ builder.Services.AddScoped<IComponentRepository, ComponentRepoMariaDb>();
 
 // here is where we add services which test our libraries
 
-builder.Services.AddScoped<IMath, MathCsLib>();
+builder.Services.AddScoped<IMath, MathVbLib>();
 
 
 

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\libraries\csLibrary\csLibrary.csproj" />
+    <ProjectReference Include="..\libraries\vbLibrary\vbLibrary.vbproj" />
   </ItemGroup>
 
 </Project>
