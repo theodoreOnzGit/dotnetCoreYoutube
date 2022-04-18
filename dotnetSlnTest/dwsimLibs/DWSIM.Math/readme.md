@@ -53,3 +53,34 @@ Only after removal of these files, we arrived at a build able to use these
 libraries...
 
 
+AP.vb was modified so as to use If instead of IIf
+idk if the syntax is okay. so it may be buggy
+
+
+full list of deleted files:
+	modified:   DWSIM.Math/AP.vb
+	deleted:    DWSIM.Math/BilinearInterpolation.vb
+	deleted:    DWSIM.Math/DWSIM.MathOps.vbproj
+	deleted:    DWSIM.Math/Extrapolation.vb
+	deleted:    DWSIM.Math/GDEM.vb
+	deleted:    DWSIM.Math/General.vb
+	deleted:    DWSIM.Math/IPOPTSolver.vb
+	deleted:    DWSIM.Math/Intersection.vb
+	deleted:    DWSIM.Math/LM.vb
+	deleted:    DWSIM.Math/LMFit.vb
+	deleted:    DWSIM.Math/LP_Solve.vb
+	deleted:    DWSIM.Math/MatrixOps.vb
+	deleted:    DWSIM.Math/My Project/Application.Designer.vb
+	deleted:    DWSIM.Math/My Project/Application.myapp
+	deleted:    DWSIM.Math/My Project/AssemblyInfo.vb
+	deleted:    DWSIM.Math/My Project/Resources.Designer.vb
+	deleted:    DWSIM.Math/My Project/Resources.resx
+	deleted:    DWSIM.Math/My Project/Settings.Designer.vb
+	deleted:    DWSIM.Math/My Project/Settings.settings
+	deleted:    DWSIM.Math/NewtonSolver.vb
+	deleted:    DWSIM.Math/SysLin.vb
+	deleted:    DWSIM.Math/cMatLib.vb
+	deleted:    DWSIM.Math/packages.config
+	modified:   dwsimLibs.vbproj
+
+
