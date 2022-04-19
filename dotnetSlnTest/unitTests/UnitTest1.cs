@@ -37,8 +37,33 @@ public class UnitTest1
 		// https://github.com/xunit/xunit/blob/4415ae1a1f2afc1d4e36432f26b837ddea5f66a3/src/xunit.v3.assert.tests/Asserts/CollectionAssertsTests.cs
 
 
+		// now, assert equal of the tuples means
+		// that the quadratic roots must come in exactly the same
+		// order in order to be right
+		// this is too restrictive for this quadratic calculator
+		// i don't really care if the tuples are in one or the other
+		// order
 
-		Assert.Equal(expectedTuple,actualResult);
+		// so i'm going to design the test such that
+		// if it's in the correct order, pass the thing
+
+
+		if(expectedTuple.Item1 == actualResult.Item1){
+
+			Assert.Equal(expectedTuple,actualResult);
+
+		}
+		else if (expectedTuple != actualResult){
+			// if it's not equal, then check if inverting the order works
+
+			System.Tuple<double,double> invertedExpectedTuple;
+			invertedExpectedTuple = new System.Tuple<double,double>(expectedRoot2,expectedRoot1);
+
+			Assert.Equal(invertedExpectedTuple,actualResult);
+			return;
+		}
+
+
 
 		
 
