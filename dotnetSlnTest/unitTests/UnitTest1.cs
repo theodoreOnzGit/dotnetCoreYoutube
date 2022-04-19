@@ -14,6 +14,7 @@ public class UnitTest1
 	[Theory]
 	[InlineData(1,0,-4,2,-2)]
 	[InlineData(1,0,-4,-2,2)]
+	[InlineData(1,0,4,System.Double.NaN,System.Double.NaN)]
 	public void Quadratic_TestShouldCalculate(double a, double b, double c, double expectedRoot1, double expectedRoot2){
 
 		//Arrange (means it set up the variables here)
